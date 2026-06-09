@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>腎代替療法を知ろう</title>
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --primary-light: #e6f0fa;
+      --accent: #10b981;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --text-sub: #64748b;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+      --r: 20px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN', Meiryo, sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .screen { display: none; min-height: 100vh; flex-direction: column; }
+    .screen.active { display: flex; animation: fadeUp 0.28s cubic-bezier(0.16,1,0.3,1); }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    /* ── Header ── */
+    .hdr {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display: flex; align-items: center; padding: 0 12px; min-height: 58px;
+    }
+    .hdr-back {
+      width: 44px; height: 44px; flex-shrink: 0; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; color: var(--primary); border-radius: 22px; transition: background 0.15s;
+    }
+    .hdr-back:active { background: var(--primary-light); }
+    .hdr-back.hidden { visibility: hidden; pointer-events: none; }
+    .hdr-title { flex: 1; font-size: 1.1rem; font-weight: 700; color: var(--text); text-align: center; }
+    .hdr-space { width: 44px; flex-shrink: 0; }
+    .hdr.col { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: none; }
+    .hdr.col .hdr-title, .hdr.col .hdr-back { color: #fff; }
+    /* ── Content ── */
+    .content { flex: 1; padding: 20px 16px 72px; }
+    /* ── Icon Wrap (絵文字コンテナ) ── */
+    .icon-wrap {
+      width: 54px; height: 54px; border-radius: 15px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.85rem; background: var(--bg);
+    }
+    .c-hd   .icon-wrap { background: #eff6ff; }
+    .c-hhd  .icon-wrap { background: #ecfdf5; }
+    .c-capd .icon-wrap { background: #f5f3ff; }
+    .c-apd  .icon-wrap { background: #eef2ff; }
+    .c-tx   .icon-wrap { background: #fef2f2; }
+    .c-home .icon-wrap { background: var(--primary-light); }
+    /* ── Card ── */
+    .card {
+      background: var(--surface); border-radius: var(--r);
+      padding: 20px 18px; margin-bottom: 14px;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+    }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .card-body  { font-size: 1.05rem; line-height: 1.8; color: var(--text-sub); }
+    /* ── Buttons ── */
+    .btn {
+      display: flex; align-items: center; width: 100%; min-height: 80px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 14px 18px; margin-bottom: 12px;
+      font-size: 1.1rem; font-weight: 700; color: var(--text);
+      cursor: pointer; box-shadow: var(--shadow-sm);
+      transition: transform 0.12s, background 0.1s; text-align: left; gap: 14px;
+    }
+    .btn:active { transform: scale(0.98); background: var(--bg); }
+    .btn .text { flex: 1; line-height: 1.35; }
+    .btn .text .sub { font-size: 0.82rem; font-weight: 500; color: var(--text-sub); margin-top: 4px; }
+    .btn .arr { font-size: 1.4rem; color: #cbd5e1; flex-shrink: 0; }
+    .btn.primary {
+      background: var(--primary); color: #fff; justify-content: center;
+      border: none; box-shadow: 0 4px 14px rgba(15,76,129,0.28);
+      min-height: 60px; font-size: 1.05rem;
+    }
+    .btn.primary:active { background: #0c3e6a; transform: scale(0.98); }
+    .btn.accent {
+      background: var(--accent); color: #fff; justify-content: center;
+      border: none; box-shadow: 0 4px 14px rgba(16,185,129,0.28);
+      min-height: 60px; font-size: 1.05rem;
+    }
+    .btn.ghost {
+      min-height: 56px; background: var(--bg); border: 1px solid var(--border);
+      box-shadow: none; font-size: 1rem; color: var(--text-sub); justify-content: center; font-weight: 600;
+    }
+    .btn.ghost:active { background: #edf2f7; transform: none; }
+    /* ── Top hero ── */
+    .hero { text-align: center; padding: 28px 16px 20px; }
+    .hero-sub { font-size: 0.8rem; font-weight: 700; color: var(--text-sub); letter-spacing: 0.12em; margin-bottom: 12px; }
+    .hero-title { font-size: 1.7rem; font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 10px; }
+    .hero-lead { font-size: 1.05rem; color: var(--text-sub); }
+    /* ── Grids ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+    .tile-btn {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 18px 10px; cursor: pointer; text-align: center;
+      box-shadow: var(--shadow-sm); transition: transform 0.12s;
+    }
+    .tile-btn:active { transform: scale(0.95); background: var(--bg); }
+    .tile-btn .t-ico { font-size: 2.6rem; display: block; margin-bottom: 10px; }
+    .tile-btn .t-lbl { font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.35; }
+    .tile-btn .t-sub { font-size: 0.76rem; color: var(--text-sub); margin-top: 4px; }
+    .nav-tile {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 14px 6px; cursor: pointer; text-align: center;
+      box-shadow: var(--shadow-sm); transition: transform 0.12s;
+    }
+    .nav-tile:active { transform: scale(0.95); }
+    .nav-tile .ni { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+    .nav-tile .nl { font-size: 0.78rem; font-weight: 700; color: var(--text-sub); line-height: 1.3; }
+    /* ── Progress ── */
+    .prog-area { padding: 12px 16px 0; }
+    .prog-wrap { background: var(--border); border-radius: 8px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+    .prog-fill { height: 100%; background: var(--primary); border-radius: 8px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .prog-lbl  { font-size: 0.82rem; color: var(--text-sub); text-align: right; font-weight: 600; margin-bottom: 8px; }
+    /* ── Big Card (Viewer) ── */
+    .big-card {
+      background: var(--surface); border-radius: 24px;
+      padding: 36px 24px; box-shadow: var(--shadow-md);
+      text-align: center; margin-bottom: 20px;
+    }
+    .big-card .be-wrap {
+      width: 96px; height: 96px; border-radius: 50%; background: var(--bg);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 4.4rem; line-height: 1; margin-bottom: 22px;
+    }
+    .big-card .bt { font-size: 1.45rem; font-weight: 800; margin-bottom: 16px; color: var(--text); }
+    .big-card .bb { font-size: 1.1rem; line-height: 1.85; color: var(--text-sub); text-align: left; }
+    /* ── Main 2 Tiles ── */
+    .main-tile {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 24px 12px 20px; cursor: pointer; text-align: center;
+      box-shadow: var(--shadow-md); transition: transform 0.12s;
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+    }
+    .main-tile:active { transform: scale(0.96); background: var(--bg); }
+    .main-tile .mt-ico { font-size: 3.4rem; display: block; margin-bottom: 12px; line-height: 1; }
+    .main-tile .mt-lbl { font-size: 1.05rem; font-weight: 800; color: var(--text); line-height: 1.4; display: block; margin-bottom: 6px; }
+    .main-tile .mt-sub { font-size: 0.78rem; color: var(--text-sub); font-weight: 500; }
+    /* ── FAQ Grid ── */
+    .faq-btn {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+      padding: 18px 10px; cursor: pointer; text-align: center;
+      box-shadow: var(--shadow-sm); transition: transform 0.12s;
+    }
+    .faq-btn:active { transform: scale(0.95); background: var(--bg); }
+    .faq-btn .fi { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+    .faq-btn .fl { font-size: 0.95rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .faq-btn .fq { font-size: 0.76rem; color: var(--text-sub); margin-top: 4px; }
+    /* ── Answer Banner ── */
+    .ans-card {
+      border-radius: 20px; padding: 26px 20px; margin-bottom: 16px; text-align: center;
+      background: linear-gradient(135deg, var(--primary), #2980b9); color: #fff;
+      box-shadow: 0 8px 24px rgba(15,76,129,0.2);
+    }
+    .ans-card .ai { font-size: 3rem; margin-bottom: 10px; }
+    .ans-card .aq { font-size: 0.95rem; opacity: 0.9; margin-bottom: 8px; font-weight: 600; }
+    .ans-card .aa { font-size: 1.3rem; font-weight: 800; line-height: 1.4; }
+    /* ── Stories ── */
+    .story-card {
+      background: var(--surface); border-radius: var(--r); padding: 18px 16px; margin-bottom: 12px;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 14px; cursor: pointer; transition: transform 0.12s;
+    }
+    .story-card:active { transform: scale(0.97); }
+    .story-card .sc-ico { font-size: 3rem; flex-shrink: 0; }
+    .story-card .sc-body { flex: 1; }
+    .story-card .sc-name { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .story-card .sc-prev { font-size: 0.9rem; color: var(--text-sub); margin-top: 4px; line-height: 1.4; }
+    .story-card .sc-tag { display: inline-block; font-size: 0.78rem; border-radius: 8px; padding: 3px 8px; margin-top: 6px; font-weight: 700; }
+    .story-card .sc-arr { font-size: 1.4rem; color: #cbd5e1; flex-shrink: 0; }
+    /* ── Game ── */
+    .game-q { font-size: 1.25rem; font-weight: 800; color: var(--text); line-height: 1.5; margin-bottom: 24px; }
+    .game-opt {
+      display: block; width: 100%; background: var(--surface); border: 2px solid var(--border);
+      border-radius: 16px; padding: 18px 18px; margin-bottom: 12px;
+      font-size: 1.05rem; font-weight: 600; color: var(--text); cursor: pointer; text-align: left;
+      transition: all 0.15s; min-height: 62px;
+    }
+    .game-opt.picked { background: var(--primary-light); border-color: var(--primary); color: var(--primary); font-weight: 700; }
+    .game-opt:active { background: var(--bg); }
+    /* ── Result ── */
+    .result-hero {
+      background: linear-gradient(135deg, var(--primary), #2980b9);
+      color: #fff; border-radius: 24px; padding: 32px 20px; text-align: center;
+      margin-bottom: 20px; box-shadow: 0 8px 28px rgba(15,76,129,0.25);
+    }
+    .result-hero .rh-label { font-size: 0.85rem; opacity: 0.85; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.08em; }
+    .result-hero .rh-ico { font-size: 4rem; margin-bottom: 10px; line-height: 1; }
+    .result-hero .rh-type { font-size: 1.7rem; font-weight: 900; margin-bottom: 20px; line-height: 1.3; }
+    .result-hero .rh-pct {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.2); border-radius: 50px; padding: 10px 20px;
+      font-size: 0.9rem; font-weight: 700;
+    }
+    .result-hero .rh-pct strong { font-size: 1.5rem; }
+    .pri-row { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); gap: 12px; }
+    .pri-row:last-child { border-bottom: none; }
+    .pri-row .pr-ico { font-size: 1.8rem; flex-shrink: 0; }
+    .pri-row .pr-lbl { flex: 1; font-size: 1.02rem; font-weight: 700; color: var(--text); }
+    .pri-row .pr-star { font-size: 1.1rem; color: #f59e0b; }
+    .tr-card {
+      background: var(--surface); border-radius: 16px; padding: 16px 14px; margin-bottom: 10px;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+    }
+    .tr-card .tr-hd { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .tr-card .tr-ico-wrap { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .tr-card .tr-name { font-size: 1.05rem; font-weight: 700; }
+    .tr-card .tr-pts { font-size: 0.92rem; color: var(--text-sub); line-height: 1.65; }
+    .tr-card .tr-more { display: block; width: 100%; border: none; border-radius: 10px; padding: 10px; margin-top: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; }
+    /* ── Done / Achievement ── */
+    .achievement { text-align: center; padding: 28px 20px 16px; }
+    .ach-ico { font-size: 5rem; margin-bottom: 14px; }
+    .ach-title { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .ach-sub { font-size: 0.95rem; color: var(--text-sub); margin-bottom: 20px; line-height: 1.7; }
+    .ach-score {
+      background: linear-gradient(135deg, var(--primary), #2980b9);
+      color: #fff; border-radius: 20px; padding: 24px 20px; margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(15,76,129,0.2);
+    }
+    .ach-score .as-label { font-size: 0.88rem; opacity: 0.85; margin-bottom: 8px; font-weight: 600; }
+    .ach-score .as-num { font-size: 3.5rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+    .ach-score .as-pct { font-size: 1.2rem; opacity: 0.85; }
+    .ach-score .as-stars { font-size: 1.8rem; margin-top: 10px; }
+    /* ── Doctor Message ── */
+    .doc-msg {
+      background: var(--surface); border-radius: 20px; padding: 24px 20px;
+      border: 2px solid var(--primary-light); margin-bottom: 16px; box-shadow: var(--shadow-sm);
+    }
+    .doc-msg .dm-from { font-size: 0.82rem; color: var(--text-sub); margin-bottom: 12px; font-weight: 700; }
+    .doc-msg .dm-text { font-size: 1.1rem; line-height: 1.9; color: var(--text); }
+    /* ── Misc ── */
+    .hl-box { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 0 14px 14px 0; padding: 16px 14px; font-size: 0.95rem; line-height: 1.75; color: var(--text-sub); margin: 12px 0; }
+    .sec-lbl { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; color: #aaa; margin: 20px 0 10px; }
+    .divider { display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.85rem; margin: 20px 0; }
+    .divider::before, .divider::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
+    .disc { font-size: 0.82rem; color: var(--text-sub); text-align: center; line-height: 1.6; margin-top: 20px; padding: 14px; background: var(--bg); border-radius: 12px; border: 1px solid var(--border); }
+    /* ── Font Toggle Button (A+) ── */
+    html { font-size: 16px; }
+    html.large { font-size: 20px; }
+    .hdr-font-btn {
+      width: 44px; height: 44px; flex-shrink: 0; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; font-weight: 800; color: var(--primary); border-radius: 10px;
+      transition: background 0.15s; letter-spacing: -0.02em; line-height: 1;
+    }
+    .hdr-font-btn:active { background: var(--primary-light); }
+    html.large .hdr-font-btn { background: var(--primary); color: #fff; }
+    .hdr.col .hdr-font-btn { color: rgba(255,255,255,0.9); }
+    html.large .hdr.col .hdr-font-btn { background: rgba(255,255,255,0.25); color: #fff; }
+    /* ── Doctor View Screen ── */
+    #s-doctor { background: #fff; }
+    .dv-banner {
+      background: var(--primary); color: #fff;
+      padding: 22px 20px 18px; text-align: center;
+    }
+    .dv-banner .dv-label { font-size: 0.82rem; opacity: 0.8; margin-bottom: 6px; letter-spacing: 0.06em; }
+    .dv-banner .dv-heading { font-size: 1.15rem; font-weight: 800; }
+    .dv-type-card {
+      background: linear-gradient(135deg, var(--primary), #2980b9);
+      color: #fff; border-radius: 20px; padding: 28px 20px;
+      text-align: center; margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(15,76,129,0.25);
+    }
+    .dv-type-card .dt-ico { font-size: 4rem; margin-bottom: 10px; line-height: 1; }
+    .dv-type-card .dt-type { font-size: 1.5rem; font-weight: 900; line-height: 1.3; }
+    .dv-pri-row {
+      display: flex; align-items: center; padding: 16px 0;
+      border-bottom: 1px solid var(--border); gap: 14px;
+    }
+    .dv-pri-row:last-child { border-bottom: none; }
+    .dv-pri-row .dp-ico { font-size: 2rem; flex-shrink: 0; }
+    .dv-pri-row .dp-lbl { flex: 1; font-size: 1.15rem; font-weight: 700; color: var(--text); }
+    .dv-pri-row .dp-star { font-size: 1.3rem; color: #f59e0b; }
+    /* ── FAB ── */
+    #fab-home {
+      position: fixed; bottom: 22px; right: 16px; z-index: 999;
+      height: 58px; border-radius: 29px; padding: 0 22px 0 14px;
+      background: var(--surface); color: var(--primary); border: 1.5px solid var(--border);
+      font-size: 1.05rem; font-weight: 700; cursor: pointer;
+      box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px;
+      transition: transform 0.15s, opacity 0.2s;
+    }
+    #fab-home:active { transform: scale(0.93); }
+    #fab-home.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
+    #fab-home .fab-icon { font-size: 1.5rem; }
+  </style>
+</head>
+<body>
+<button id="fab-home" class="hidden" onclick="fabHome()">
+  <span class="fab-icon">🏠</span>トップへ
+</button>
+<!-- ==================== TOP ==================== -->
+<div class="screen active" id="s-top">
+  <div class="hdr">
+    <div class="hdr-back hidden"></div>
+    <div class="hdr-title">腎代替療法を知ろう</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content" style="padding-top:0;">
+    <div class="hero">
+      <div class="hero-sub">KIDNEY CARE GUIDE</div>
+      <div class="hero-title">あなたらしい人生を<br>続けるために</div>
+      <div class="hero-lead">一緒に考えてみませんか？</div>
+    </div>
+    <div class="grid-2" style="margin-bottom:16px;">
+      <button class="main-tile" onclick="gameStart()" style="border:2.5px solid var(--primary);">
+        <span class="mt-ico">🎮</span>
+        <span class="mt-lbl" style="color:var(--primary);">自分に合う<br>治療を探す</span>
+        <span class="mt-sub" style="color:var(--primary);opacity:0.75;">5問で診断</span>
+      </button>
+      <button class="main-tile" onclick="go('s-therapy-top')">
+        <span class="mt-ico">📖</span>
+        <span class="mt-lbl">治療法を<br>知る</span>
+        <span class="mt-sub">詳しく解説</span>
+      </button>
+    </div>
+    <div class="divider">何が心配ですか？</div>
+    <div class="grid-2" id="worry-grid"></div>
+    <div style="margin-top:10px;">
+      <button class="btn ghost" style="min-height:56px;" onclick="go('s-stories')">
+        📚 体験談ストーリーを読む
+      </button>
+    </div>
+    <div class="disc">このアプリは患者教育を目的とした一般的な情報提供です。<br>治療方針は必ず主治医とご相談ください。</div>
+  </div>
+</div>
+<!-- ==================== THERAPY TOP ==================== -->
+<div class="screen" id="s-therapy-top">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">治療法を知る</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <button class="btn c-hd" onclick="startTherapy('hd')">
+      <div class="icon-wrap">🏥</div>
+      <div class="text">病院で受ける透析（HD）<div class="sub">通院→スタッフが管理してくれる透析</div></div>
+      <div class="arr">›</div>
+    </button>
+    <button class="btn c-home" onclick="go('s-home-therapy')">
+      <div class="icon-wrap">🏠</div>
+      <div class="text">家で受ける透析<div class="sub">在宅血液透析 / 腹膜透析（昼・夜）</div></div>
+      <div class="arr">›</div>
+    </button>
+    <button class="btn c-tx" onclick="startTherapy('tx')">
+      <div class="icon-wrap">🫀</div>
+      <div class="text">腎移植<div class="sub">透析が不要になる可能性がある治療</div></div>
+      <div class="arr">›</div>
+    </button>
+  </div>
+</div>
+<!-- ==================== HOME THERAPY SUBMENU ==================== -->
+<div class="screen" id="s-home-therapy">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">家で受ける透析</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-body">自宅で行う透析には3つの方法があります。<strong>血液を使う方法（HHD）</strong>と、<strong>お腹をフィルター代わりにする腹膜透析（CAPD・APD）</strong>です。</div>
+    </div>
+    <button class="btn c-hhd" onclick="startTherapy('hhd')">
+      <div class="icon-wrap">🏡</div>
+      <div class="text">在宅血液透析（HHD）<div class="sub">血液を使う方法を、自宅の機械で行う</div></div>
+      <div class="arr">›</div>
+    </button>
+    <button class="btn c-capd" onclick="startTherapy('capd')">
+      <div class="icon-wrap">🌅</div>
+      <div class="text">腹膜透析・昼タイプ（CAPD）<div class="sub">お腹をフィルターに・昼間に自分で交換</div></div>
+      <div class="arr">›</div>
+    </button>
+    <button class="btn c-apd" onclick="startTherapy('apd')">
+      <div class="icon-wrap">🌙</div>
+      <div class="text">腹膜透析・夜タイプ（APD）<div class="sub">お腹をフィルターに・夜間に機械が自動で</div></div>
+      <div class="arr">›</div>
+    </button>
+  </div>
+</div>
+<!-- ==================== CARD VIEWER ==================== -->
+<div class="screen" id="s-card-viewer">
+  <div class="hdr col" id="cv-hdr">
+    <button class="hdr-back" onclick="cardBack()">‹</button>
+    <div class="hdr-title" id="cv-title">治療法</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="prog-area">
+    <div class="prog-wrap"><div class="prog-fill" id="cv-pfill" style="width:0%"></div></div>
+    <div class="prog-lbl" id="cv-plbl">1 / 7</div>
+  </div>
+  <div class="content" style="padding-top:8px;">
+    <div class="big-card">
+      <div class="be-wrap" id="cv-emoji">🩸</div>
+      <div class="bt" id="cv-ctitle">タイトル</div>
+      <div class="bb" id="cv-cbody">本文</div>
+    </div>
+    <button class="btn primary" id="cv-next" onclick="cardNext()">次へ →</button>
+  </div>
+</div>
+<!-- ==================== DONE / ACHIEVEMENT ==================== -->
+<div class="screen" id="s-done">
+  <div class="hdr col" id="done-hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title" id="done-title">完了</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <div class="achievement">
+      <div class="ach-ico">🎉</div>
+      <div class="ach-title">お疲れさまでした！</div>
+      <div class="ach-sub" id="done-sub">全ての説明を読みました</div>
+      <div class="ach-score">
+        <div class="as-label" id="done-score-label">この治療法について</div>
+        <div><span class="as-num" id="done-score-num">100</span><span class="as-pct">%</span></div>
+        <div class="as-label">理解しました</div>
+        <div class="as-stars" id="done-score-stars">🌟🌟🌟🌟🌟</div>
+      </div>
+    </div>
+    <button class="btn ghost" id="done-replay" style="margin-bottom:10px;">← もう一度見る</button>
+    <div id="done-extra"></div>
+    <button class="btn accent" onclick="go('s-faq-top')" style="margin-bottom:10px;">😟 不安を解消する</button>
+    <button class="btn primary" onclick="gameStart()" style="margin-bottom:10px;">🎮 自分に合う治療を探す</button>
+    <button class="btn ghost" onclick="go('s-top')">🏠 トップへ</button>
+  </div>
+</div>
+<!-- ==================== FAQ TOP ==================== -->
+<div class="screen" id="s-faq-top">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">不安を解消する</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <div class="grid-2" id="faq-grid"></div>
+  </div>
+</div>
+<!-- ==================== FAQ VIEWER ==================== -->
+<div class="screen" id="s-faq">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title" id="faq-htitle">不安解消</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content" id="faq-content"></div>
+</div>
+<!-- ==================== STORIES LIST ==================== -->
+<div class="screen" id="s-stories">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">体験談ストーリー</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-body">透析・移植をしながら元気に生活されている方のストーリーです。</div>
+    </div>
+    <div id="story-list"></div>
+  </div>
+</div>
+<!-- ==================== GAME ==================== -->
+<div class="screen" id="s-game">
+  <div class="hdr">
+    <button class="hdr-back" onclick="gamePrev()">‹</button>
+    <div class="hdr-title">自分に合う治療を探す</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="prog-area">
+    <div class="prog-wrap"><div class="prog-fill" id="gm-pfill" style="width:0%"></div></div>
+    <div class="prog-lbl" id="gm-plbl">質問 1 / 5</div>
+  </div>
+  <div class="content" style="padding-top:12px;" id="game-content"></div>
+</div>
+<!-- ==================== RESULT ==================== -->
+<div class="screen" id="s-result">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">あなたの結果</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <div id="result-content"></div>
+    <div class="doc-msg">
+      <div class="dm-from">😊 主治医より</div>
+      <div class="dm-text">あなたに合う治療は、まだ決まっていません。<br><br>正解は1つではありません。<br><br>あなたの人生に合わせて、<strong>一緒に考えていきましょう。</strong></div>
+    </div>
+    <button class="btn accent" onclick="showDoctorView()" style="margin-bottom:10px;font-size:1.1rem;">🩺 この結果を主治医に見せる</button>
+    <button class="btn primary" onclick="gameStart()" style="margin-bottom:10px;">🔄 もう一度やり直す</button>
+    <button class="btn ghost" onclick="go('s-top')">🏠 トップへ</button>
+  </div>
+</div>
+<!-- ==================== DOCTOR VIEW ==================== -->
+<div class="screen" id="s-doctor">
+  <div class="dv-banner">
+    <div class="dv-label">患者さんからの情報共有</div>
+    <div class="dv-heading">先生へ：患者さんの価値観</div>
+  </div>
+  <div class="content" style="padding-top:20px; padding-bottom:80px;">
+    <div id="dv-content"></div>
+    <div class="disc">この結果は患者さんが回答した価値観の傾向です。<br>実際の治療選択は先生とご相談ください。</div>
+  </div>
+  <div style="position:fixed;bottom:0;left:0;right:0;padding:16px 20px 32px;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);">
+    <button class="btn ghost" onclick="goBack()" style="margin-bottom:0;">× 閉じる</button>
+  </div>
+</div>
+<script>
+// ======================================================
+// NAVIGATION
+// ======================================================
+let navStack = [];
+function go(id) {
+  const cur = document.querySelector('.screen.active');
+  if (cur && cur.id !== id) navStack.push(cur.id);
+  _act(id);
+}
+function goBack() { if (navStack.length > 0) _act(navStack.pop()); else _act('s-top'); }
+function _act(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  const fab = document.getElementById('fab-home');
+  if (id === 's-top') fab.classList.add('hidden'); else fab.classList.remove('hidden');
+}
+function fabHome() { navStack = []; _act('s-top'); }
+// ======================================================
+// THERAPY DATA
+// ======================================================
+const T = {
+  hd: {
+    name:'病院での透析（HD）', icon:'🏥', color:'#2874a6', bg:'#eff6ff', type:'therapy',
+    cards:[
+      {e:'🩸', t:'どんな治療？',              b:'病院やクリニックに通院し、血液を機械でろ過する治療です。週に数回、看護師・スタッフのサポートを受けながら行います。'},
+      {e:'👩‍⚕️', t:'スタッフに任せられる',   b:'機械の操作や管理を自分でする必要がありません。医療スタッフが常にそばにいるので、安心して治療を受けられます。'},
+      {e:'🗾', t:'全国に施設が多い',          b:'全国に約4,500の透析施設があります。旅行先でも事前に予約すれば透析を受けやすいです。'},
+      {e:'📅', t:'治療スケジュール',          b:'一般的に週3回、1回4〜5時間です。夜間透析のクリニックを選べば、日中は今まで通り仕事ができます。'},
+      {e:'🍽️', t:'食事について',             b:'塩分・カリウム・リン・水分の管理が必要ですが、管理栄養士が工夫を教えてくれます。ご家族と同じ食卓を楽しめる工夫もあります。'},
+      {e:'💪', t:'シャントとは？',           b:'腕の血管を太くする小さな手術（シャント造設）が必要です。毎回ここに針を刺しますが、麻酔クリームやテープで痛みを和らげられます。'},
+      {e:'👤', t:'こんな方に向いているかも', b:'スタッフに安心して任せたい方。通院手段がある方。全国どこでも同じように治療を受けたい方。'},
+    ]
+  },
+  hhd: {
+    name:'在宅血液透析（HHD）', icon:'🏡', color:'#1a8c78', bg:'#ecfdf5', type:'therapy',
+    cards:[
+      {e:'🏡', t:'どんな治療？',              b:'透析機械を自宅に設置し、自分で（またはご家族の助けを借りて）血液を浄化する治療です。'},
+      {e:'🕐', t:'スケジュールが自由',        b:'治療日・時間を自分でコントロールできます。夜間に行うことも可能で、仕事・趣味に合わせられます。'},
+      {e:'💪', t:'透析をしっかりとれる',      b:'施設透析より長い時間で透析できることが多く、体の状態が安定しやすい場合があります。'},
+      {e:'📅', t:'通院回数が少ない',          b:'月数回の通院（診察・検査）で済むことが多く、日常的に施設に通う必要がありません。'},
+      {e:'📚', t:'導入前にトレーニング',      b:'機械の操作・針の刺し方などを事前に十分トレーニングします。習得まで数週間〜数ヶ月かかります。'},
+      {e:'💉', t:'針は基本的に自分で刺します', b:'在宅血液透析では、シャントへの針刺し（自己穿刺）を原則として自分で行います。施設透析では看護師が行いますが、HHDでは自分で正確に刺せるようになることがトレーニングの大きな柱です。'},
+      {e:'👁️', t:'透析中は必ず誰かの見守りが必要', b:'透析中に急に血圧が下がったり、気分が悪くなることがあります。そのような緊急時には介助者が「透析終了ボタンを押す」などの対応が必要です。一人での透析は原則として行えません。ご家族など介助者の同席が必須です。'},
+      {e:'🏠', t:'自宅に設置スペースが必要', b:'透析機器・水処理装置を置くスペースが必要です。緊急時のサポート体制も大切です。'},
+      {e:'👤', t:'こんな方に向いているかも', b:'自己管理意欲が高く、仕事・趣味を続けたい方。一緒にトレーニングを受けてくれる介助者（ご家族など）がいる方。'},
+    ]
+  },
+  capd: {
+    name:'腹膜透析・昼タイプ（CAPD）', icon:'🌅', color:'#8e44ad', bg:'#f5f3ff', type:'therapy',
+    cards:[
+      {e:'🌅', t:'どんな治療？',              b:'お腹の腹膜をフィルター代わりに使います。1日3〜5回バッグを交換するだけで、24時間ゆっくり透析が続きます。'},
+      {e:'🔌', t:'機械なしで治療できる',      b:'電源や機械が不要です。バッグと消耗品さえあれば、旅行先やどこでも治療を続けられます。停電時も安心です。'},
+      {e:'✈️', t:'旅行・外出がしやすい',      b:'透析液を旅行先に配送してもらう手配ができます。多くの患者さんが国内外への旅行を楽しんでいます。'},
+      {e:'🥗', t:'食事の自由度が高め',        b:'腹膜透析はカリウムが除去されやすく、生野菜・果物の制限が血液透析より緩めなことが多いです。'},
+      {e:'🫁', t:'自分の腎臓の働きが保たれやすい', b:'腹膜透析を最初に選ぶ大きなメリットのひとつです。血液透析と比較して、残っている自分の腎臓の機能が長く保たれやすいと報告されています（残存腎機能の保持）。'},
+      {e:'🧼', t:'腹膜炎に注意',             b:'最も重要な合併症が腹膜炎です。バッグ交換の際に清潔操作を守れば発症リスクを下げられます。お腹の痛み・にごった排液が出たら、すぐに病院に連絡してください。'},
+      {e:'⏳', t:'腹膜透析には使用できる期間がある', b:'長期間使用すると腹膜が傷み、「被嚢性腹膜硬化症（EPS）」という重篤な合併症が起こる場合があります。一般的な目安は約8年とされ、期間に応じて血液透析や腎移植への移行を検討します。'},
+      {e:'⏰', t:'毎日のバッグ交換',          b:'1日3〜5回（1回約30分）の交換が必要です。清潔な場所で毎日行います。'},
+      {e:'👤', t:'こんな方に向いているかも', b:'旅行・外出を楽しみたい方。通院回数を減らしたい方。機械なしで治療したい方。'},
+    ]
+  },
+  apd: {
+    name:'腹膜透析・夜タイプ（APD）', icon:'🌙', color:'#6c5ce7', bg:'#eef2ff', type:'therapy',
+    cards:[
+      {e:'🌙', t:'どんな治療？',              b:'夜間にサイクラーという機械をお腹のカテーテルに接続し、寝ている間に自動で透析を行います。'},
+      {e:'☀️', t:'昼間が自由',               b:'朝に機械を外すと、昼間はほぼ自由に活動できます。バッグ交換が不要か、少なくできる場合があります。'},
+      {e:'💼', t:'仕事・学業と両立しやすい', b:'夜間に透析をするため、日中はフルタイムで仕事や学業ができる方も多いです。'},
+      {e:'📅', t:'通院回数が少ない',          b:'月1〜2回の通院が目安です。日常的に通院する必要がありません。'},
+      {e:'🫁', t:'自分の腎臓の働きが保たれやすい', b:'CAPDと同様に、腹膜透析は血液透析と比較して残存腎機能が長く保たれやすいと報告されています。早期から腹膜透析を選ぶ理由のひとつです。'},
+      {e:'🧼', t:'腹膜炎に注意',             b:'最も重要な合併症が腹膜炎です。接続部の清潔操作を守ることが大切です。お腹の痛み・にごった排液が出たら、すぐに病院に連絡してください。'},
+      {e:'⏳', t:'腹膜透析には使用できる期間がある', b:'長期間使用すると腹膜が傷み、「被嚢性腹膜硬化症（EPS）」という重篤な合併症が起こる場合があります。一般的な目安は約8年とされ、期間に応じて血液透析や腎移植への移行を検討します。'},
+      {e:'🔧', t:'機械の設置と管理',          b:'自宅にサイクラーを置くスペースと、操作を習得するトレーニングが必要です。'},
+      {e:'👤', t:'こんな方に向いているかも', b:'日中に仕事・学業を続けたい方。昼間の操作を減らしたい方。機械操作に抵抗のない方。'},
+    ]
+  },
+  tx: {
+    name:'腎移植', icon:'🫀', color:'#c0392b', bg:'#fef2f2', type:'therapy',
+    cards:[
+      {e:'🫀', t:'どんな治療？',               b:'ドナー（提供者）から健康な腎臓を移植し、自分の腎臓として機能させる治療です。成功すれば透析が不要になります。'},
+      {e:'🌟', t:'最も生理的な腎代替療法',     b:'透析は人工的に血液をきれいにしますが、移植は本物の腎臓が体内で機能する、最も生理的な腎代替療法です。長期的な生活の質が高くなる可能性があると報告されています。'},
+      {e:'🍽️', t:'食事・水分制限が大幅緩和',   b:'移植後は透析が不要になるため、食事・水分の制限がほとんどなくなる方が多いです。'},
+      {e:'✈️', t:'仕事・旅行・スポーツ',       b:'薬を継続すれば、旅行も仕事もスポーツも活動の幅が大きく広がります。移植後にフルマラソンを走る方もいます。'},
+      {e:'👶', t:'若い女性の方へ',              b:'移植後は妊娠・出産ができる可能性が高まります。透析中より妊娠しやすくなることが多いです（主治医にご相談ください）。'},
+      {e:'🏥', t:'手術（全身麻酔）について',   b:'手術（全身麻酔）が必要ですが、多くの方が術後2〜3週間で元気に退院されています。'},
+      {e:'💊', t:'免疫抑制薬を一生服用',       b:'移植した腎臓を守るため、拒絶反応を抑える薬を毎日飲み続けます。飲み忘れると拒絶反応が起こる場合があります。'},
+      {e:'🦠', t:'感染症に注意が必要',         b:'免疫抑制薬を飲むため、体の免疫力が下がります。風邪・肺炎・尿路感染などにかかりやすくなります。手洗い・うがい・定期検査で早期発見が大切です。'},
+      {e:'⏳', t:'待機期間（献腎の場合）',     b:'亡くなった方からの腎移植（献腎）は、日本では平均15年以上の待機が必要です。家族など生体ドナーがいる場合は早く実施できます。'},
+      {e:'👤', t:'こんな方に向いているかも',  b:'透析なしで生活したい方。活動的な生活を望む方。ドナーがいるか、長期待機も含めて検討できる方。'},
+    ]
+  }
+};
+// ======================================================
+// FAQ DATA
+// ======================================================
+const FAQS = [
+  { id:'life', icon:'⏳', label:'長生きできる？', q:'透析になると長生きできませんか？', short:'20年・30年と元気に過ごす方もたくさんいます',
+    cards:[
+      {e:'😊', t:'透析は人生の終わりではありません', b:'透析は「これからもあなたらしく生きていくためのサポート」です。20年・30年以上元気に過ごされている方はたくさんいます。'},
+      {e:'🔬', t:'技術は大きく進歩しています',       b:'透析の機械・技術・薬は昔と比べて大きく進歩しています。適切な管理を続けることで、長く元気に生活されている方も多いです。'},
+      {e:'🎯', t:'自己管理が大切',                  b:'食事・水分の管理、定期的な通院、薬の服用をしっかり続けることが、長生きの大きな鍵です。'},
+      {e:'🫀', t:'移植はさらに長寿命の可能性',       b:'腎移植が成功した場合、透析に比べてさらに長い生存が期待できると言われています。'},
+      {e:'💬', t:'何でも相談してください',           b:'不安なことは一人で抱え込まず、主治医や看護師に何でも聞いてください。あなたを支えるチームがいます。'},
+    ]},
+  { id:'money', icon:'💰', label:'お金が心配', q:'治療費はどのくらいかかりますか？', short:'日本には手厚い公的支援制度があります',
+    cards:[
+      {e:'🇯🇵', t:'日本の制度は充実しています',     b:'慢性腎不全の透析治療は、公的医療保険と医療費助成制度により、自己負担が大幅に軽減されます。'},
+      {e:'📄', t:'特定疾病療養受療証',              b:'「特定疾病療養受療証」を取得すると、保険診療の自己負担が月1万円（または2万円）に抑えられます。'},
+      {e:'♿', t:'身体障害者手帳',                 b:'透析が必要な腎機能障害では、原則1級の身体障害者手帳を取得できます。税金の軽減・交通費補助・医療費助成などが受けられます。'},
+      {e:'🏛️', t:'自治体の医療費助成',              b:'お住まいの市区町村によって、さらに医療費助成が受けられる場合があります。'},
+      {e:'🗣️', t:'ソーシャルワーカーへ相談',        b:'病院のソーシャルワーカー（社会福祉士）は医療費や生活支援について詳しく相談に乗ってくれます。一人で悩まず相談を。'},
+    ]},
+  { id:'work', icon:'💼', label:'仕事は続けられる？', q:'仕事は辞めないといけませんか？', short:'辞める必要はありません！',
+    cards:[
+      {e:'😊', t:'多くの方が働いています',           b:'透析をしながら仕事を続けている方はたくさんいます。治療法を工夫することで仕事と透析の両立ができます。'},
+      {e:'🌙', t:'夜間透析という選択肢',             b:'施設透析（HD）でも「夜間透析」のクリニックを選べば、日中はフルタイムで働けます。'},
+      {e:'🌙', t:'APDなら昼間が自由',               b:'夜間に機械が自動で透析するAPDなら、昼間はほぼ自由に過ごせます。仕事・学業と特に両立しやすい選択肢です。'},
+      {e:'🏡', t:'HHDは時間を自分で決められる',     b:'在宅血液透析（HHD）は透析時間を自分で設定できるため、仕事のスケジュールに合わせやすいです。'},
+      {e:'🫀', t:'移植後は活動の幅が広がる',         b:'腎移植後は透析の時間に縛られず働ける方が多いです。フルタイム・出張などが可能になる場合があります。'},
+    ]},
+  { id:'pain', icon:'😖', label:'透析は痛い？', q:'透析は痛いですか？', short:'痛みを和らげる工夫がたくさんあります',
+    cards:[
+      {e:'😊', t:'過度な心配は不要です',             b:'透析の痛みは、工夫次第でかなり和らげることができます。多くの患者さんが治療に慣れ、快適に受けられるようになっています。'},
+      {e:'💉', t:'HDの針について',                   b:'血液透析では毎回腕に針を刺しますが、事前に「麻酔クリーム」や「痛み止めのテープ」を使うことでかなり和らげられます。'},
+      {e:'🏠', t:'腹膜透析は針を刺さない',              b:'腹膜透析はお腹のカテーテルに液を繋ぐだけで、毎回針を刺しません。少し張る感覚がある程度で痛みはほとんどありません。'},
+      {e:'🗣️', t:'遠慮なく相談を',                  b:'痛みが気になる場合は、遠慮せず医療スタッフに伝えてください。担当スタッフと一緒に対処法を考えましょう。'},
+    ]},
+  { id:'travel', icon:'✈️', label:'旅行できる？', q:'旅行はできますか？', short:'工夫次第で旅行を楽しめます',
+    cards:[
+      {e:'😊', t:'旅行できます',                     b:'治療法を工夫すれば、国内外への旅行は十分可能です。実際に海外旅行を楽しんでいる透析患者さんもたくさんいます。'},
+      {e:'🗾', t:'HD：旅行先で施設を予約',           b:'全国に約4,500施設あるため、旅行先でも透析を受けられます。旅行前に施設を予約するだけです。'},
+      {e:'✈️', t:'CAPD：液を旅行先に送ってもらう',   b:'腹膜透析は透析液を旅行先に配送してもらう手配ができます。機械不要なCAPDは特に旅行しやすいです。'},
+      {e:'🫀', t:'移植後は旅行の幅が大きく広がる',   b:'腎移植後は薬を継続すれば、旅行の幅が大きく広がります。透析の時間に縛られない生活が期待できます。'},
+    ]},
+  { id:'food', icon:'🍽️', label:'食事はどうなる？', q:'家族と別の食事になりますか？', short:'工夫次第でご家族と同じ食事を楽しめます',
+    cards:[
+      {e:'😊', t:'別々の食事は不要です',             b:'完全に別メニューを作る必要はありません。ご家族のおかずから先に取り分け、後から家族分だけ調味料を足す工夫で対応できます。'},
+      {e:'🧂', t:'主な注意点：塩分',                 b:'どの治療法でも、塩分（ナトリウム）の制限は大切です。血圧管理のために重要です。'},
+      {e:'🥦', t:'HDはカリウムに注意',              b:'血液透析ではカリウム（野菜・果物）を制限することが多いですが、茹でこぼしなどの工夫で野菜も食べられます。'},
+      {e:'🥗', t:'腹膜透析はカリウム制限が比較的緩め', b:'腹膜透析はカリウムが除去されやすく、生野菜・果物の制限がHDより緩めなことが多いです。'},
+      {e:'🫀', t:'移植後は大幅に緩和',              b:'腎移植後は透析が不要になるため、食事・水分の制限がほとんどなくなる方が多いです。'},
+      {e:'👩‍🍳', t:'管理栄養士に相談を',             b:'食事のことで困ったら、病院の管理栄養士に相談しましょう。美味しく食べる工夫をたくさん教えてもらえます。'},
+    ]},
+  { id:'family', icon:'👨‍👩‍👧', label:'家族の負担は？', q:'家族に負担をかけますか？', short:'一人でもできる治療法があります',
+    cards:[
+      {e:'😊', t:'一人でもできる方法があります',     b:'施設透析（HD）や腹膜透析（CAPD・APD）は、基本的に一人で行える治療です。家族の手助けは必須ではありません。'},
+      {e:'🤝', t:'HHDは介助者のサポートが必要',      b:'在宅血液透析（HHD）は原則として、一緒にトレーニングを受けたご家族（介助者）のサポートが必要です。日々の準備など、無理のない分担を一緒に考えましょう。'},
+      {e:'❤️', t:'家族も一緒に説明を聞こう',         b:'ご家族が治療を理解してくれると、患者さんの精神的な安心感が大きく変わります。外来にご家族と来ていただくことをおすすめします。'},
+      {e:'🗣️', t:'本音を話し合うことが大切',         b:'「迷惑をかけたくない」と一人で抱え込まず、ご家族と率直に話し合うことが長く治療を続けるための基盤になります。'},
+    ]},
+  { id:'change', icon:'🔄', label:'途中で変えられる？', q:'一度選んだ治療法は変えられますか？', short:'「治療のリレー」という考え方があります',
+    cards:[
+      {e:'😊', t:'変えることができます',             b:'「一度決めたら一生」ではありません。体調・年齢・ライフスタイルの変化に合わせて治療法を変更できます。'},
+      {e:'🔄', t:'治療のリレー（統合的腎代替療法）', b:'最初に腹膜透析で始め、数年後に血液透析に切り替える。そこから腎移植を目指す。このように治療をリレーのようにつないでいく考え方があります。'},
+      {e:'📈', t:'代表的な移行パターン',            b:'①腹膜透析で開始→血液透析へ移行　②血液透析中に移植を待つ　③体が安定したら在宅血液透析へ移行　など様々なパターンがあります。'},
+      {e:'💡', t:'「腹膜透析から血液透析」が自然な流れなのはなぜ？', b:'腹膜透析は「自分のおしっこ（自尿）」と「腹膜」の二人三脚で行う治療です。しかし血液透析の機械を使うと、腎臓が「もう働かなくていいんだな」とお休みしてしまい、半年〜2年ほどで自分のおしっこは出なくなってしまいます。'},
+      {e:'🏃', t:'血液透析から腹膜透析へ戻りにくい理由', b:'自分のおしっこが出なくなった後に血液透析から腹膜透析へ移ろうとすると、「腹膜」だけで全ての老廃物・水分を処理しなければならず、負担が大きすぎて体の管理が難しくなります。'},
+      {e:'🏅', t:'だから「腹膜透析→血液透析」が理にかなったバトンタッチ', b:'おしっこが残っているうちは腹膜透析で自分の腎臓の力も借りながら長持ちさせ、いよいよ出なくなってきたらパワフルな血液透析にバトンタッチする。これが体への負担が少ない自然な「治療のリレー」です。'},
+      {e:'🗣️', t:'今から情報収集を',               b:'透析導入後に慌てて決めるのではなく、今の段階から情報を知っておくことが大切です。主治医に「どんな選択肢があるか」を聞いてみましょう。'},
+    ]},
+];
+// ======================================================
+// STORIES DATA
+// ======================================================
+const STORIES = [
+  { id:'a', name:'Aさん 52歳 会社員', icon:'👨‍💼', color:'#2874a6', therapy:'hd',
+    preview:'週3回の夜間透析で仕事を続けています',
+    cards:[
+      {e:'👨‍💼', t:'Aさん 52歳 会社員',           b:'製造業に勤めるAさん。健康診断でCKDが発覚し、少しずつ腎機能が低下していました。'},
+      {e:'😟', t:'「仕事を辞めるしかない...」',    b:'透析が必要と告げられた時、Aさんはそう思いました。部署のみんなに迷惑をかけたくない、と悩みました。'},
+      {e:'🌙', t:'夜間透析という選択',             b:'主治医から「夜間透析のクリニックがある」と聞き、見学に行きました。夕方6時から始まれば、日中の仕事ができます。'},
+      {e:'✅', t:'今も現役で働いています',          b:'透析を始めて3年。Aさんは今も会社に通っています。「透析してから体が楽になった」と話します。'},
+      {e:'💬', t:'Aさんから一言',                 b:'「透析＝人生終わり、と思っていました。でも仕事も続けられるし、釣りにも行けています。まず主治医に相談してよかった。」'},
+    ]},
+  { id:'b', name:'Bさん 35歳 子育て中', icon:'👩‍👧', color:'#6c5ce7', therapy:'apd',
+    preview:'夜間のAPDで子育てと両立しています',
+    cards:[
+      {e:'👩‍👧', t:'Bさん 35歳 2児の母',           b:'小学生と幼稚園の子どもを持つBさん。腎機能が低下し、透析を考える時期になりました。'},
+      {e:'😟', t:'「子どもの送り迎えができなくなる？」', b:'週3回の通院透析では子どもの送り迎えが難しくなると悩みました。夫も仕事が忙しい毎日です。'},
+      {e:'🌙', t:'夜間のAPDを選択',               b:'就寝中に機械が自動で透析するAPDなら、昼間はほぼ自由。子どもの送り迎えも、学校行事への参加もできます。'},
+      {e:'☀️', t:'昼間は子どもと一緒に',            b:'透析を始めて2年。Bさんは今も子どもたちの成長を側で見守っています。参観日も運動会も欠かさず参加しています。'},
+      {e:'💬', t:'Bさんから一言',                 b:'「子どもにとってお母さんはひとりだけ。治療しながらでも、ちゃんと母親でいられることが一番嬉しいです。」'},
+    ]},
+  { id:'c', name:'Cさん 40歳 旅行好き', icon:'✈️', color:'#c0392b', therapy:'tx',
+    preview:'腎移植後、海外旅行を楽しんでいます',
+    cards:[
+      {e:'✈️', t:'Cさん 40歳 旅行が大好き',        b:'毎年海外旅行を楽しんでいたCさん。腎機能低下で「もう旅行できないかもしれない」と思いました。'},
+      {e:'😟', t:'「透析になったら旅行は無理？」',  b:'血液透析なら旅行先で施設予約が必要。でも海外は難しい。Cさんは落ち込みました。'},
+      {e:'🫀', t:'生体腎移植の選択',              b:'兄が腎臓提供を申し出てくれました。家族で話し合い、お互いに納得した上で決めました。'},
+      {e:'🌏', t:'術後1年で海外旅行を再開',        b:'移植手術は成功。免疫抑制薬を毎日欠かさず飲みながら、術後1年でヨーロッパ旅行を楽しみました。'},
+      {e:'💬', t:'Cさんから一言',                 b:'「兄への感謝は一生忘れません。移植は万能ではないけれど、私にとっては最高の選択でした。旅行のたびに元気をもらっています。」'},
+    ]},
+];
+// ======================================================
+// GAME DATA
+// ======================================================
+const PRIORITIES = [
+  { id:'work',    label:'仕事・社会生活',   icon:'💼' },
+  { id:'travel',  label:'旅行・外出',       icon:'✈️' },
+  { id:'home',    label:'自宅での治療',     icon:'🏠' },
+  { id:'safe',    label:'安心・安全な管理', icon:'🏥' },
+  { id:'freedom', label:'生活の自由度',     icon:'🌟' },
+];
+const TYPES = {
+  work:    { label:'仕事・社会生活重視タイプ', icon:'💼', pct:73 },
+  travel:  { label:'旅行・自由重視タイプ',     icon:'✈️', pct:68 },
+  home:    { label:'在宅・自分ペースタイプ',   icon:'🏠', pct:81 },
+  safe:    { label:'安心・安全重視タイプ',     icon:'🏥', pct:77 },
+  freedom: { label:'生活の自由度重視タイプ',   icon:'🌟', pct:65 },
+};
+const GAME = {
+  steps:[
+    { q:'今、一番心配していることは？', opts:[
+      {l:'💼 仕事を続けられるか',        s:{work:3}},
+      {l:'✈️ 旅行・外出ができるか',       s:{travel:3}},
+      {l:'🏠 自宅で治療できるか',         s:{home:3}},
+      {l:'🏥 安全に管理してもらえるか',   s:{safe:3}},
+    ]},
+    { q:'治療はどこで受けたいですか？', opts:[
+      {l:'🏥 病院・クリニックに通いたい', s:{safe:3}},
+      {l:'🏠 できれば家で受けたい',       s:{home:3, freedom:1}},
+      {l:'🤷 どちらでもかまわない',       s:{safe:1, home:1, freedom:1}},
+    ]},
+    { q:'旅行や外出はあなたにとって大切ですか？', opts:[
+      {l:'✈️ とても大切',  s:{travel:3, freedom:2}},
+      {l:'🚶 まあ大切',    s:{travel:2, freedom:1}},
+      {l:'🏡 あまりしない', s:{safe:2}},
+    ]},
+    { q:'お仕事・学業のスケジュールは？', opts:[
+      {l:'💼 フルタイムで忙しい',     s:{work:3, freedom:2}},
+      {l:'🕐 比較的時間に余裕がある', s:{home:1, safe:1, freedom:2}},
+      {l:'🏠 退職・専業主婦など',     s:{safe:2, home:1}},
+    ]},
+    { q:'治療を選ぶとき、最も大切にしたいことは？', opts:[
+      {l:'❤️ 家族との時間',                 s:{home:2, freedom:2}},
+      {l:'🍽️ 食事の自由',                   s:{freedom:3}},
+      {l:'📅 通院回数を減らしたい',          s:{home:2, freedom:2}},
+      {l:'👩‍⚕️ スタッフに安心して任せたい',  s:{safe:3}},
+    ]},
+  ]
+};
+const THERAPY_PRIORITY = {
+  hd:   { work:'夜間透析のクリニックを選べば、日中は仕事ができます', travel:'全国約4,500施設があり、旅行先でも予約すれば透析を受けられます', home:'施設への通院が必要です', safe:'看護師・臨床工学技士が常にそばにいます', freedom:'週3回（目安）の通院スケジュールが必要です' },
+  hhd:  { work:'透析時間を自分で設定でき、仕事に合わせやすいです', travel:'通院不要で外出しやすいですが、機器の準備が必要です', home:'自宅で治療できます。通院は月数回です', safe:'トレーニング後は自宅で管理。緊急時のサポート体制も重要です', freedom:'透析スケジュールを自分でコントロールできます' },
+  capd: { work:'スケジュールに合わせてバッグ交換の時間を調整できます', travel:'透析液を旅行先に配送でき、機械不要で旅行しやすいです', home:'自宅・どこでも治療できます。通院は月数回です', safe:'清潔操作と定期通院で安全に管理できます', freedom:'カリウム制限が比較的緩く、食事の自由度が高めです' },
+  apd:  { work:'夜間透析するため、昼間はほぼ自由に仕事ができます', travel:'通院回数が少なく、昼間の活動がしやすいです', home:'自宅で夜間に自動治療。昼間は外出できます', safe:'毎晩機械が管理します。操作のトレーニングが必要です', freedom:'昼間が比較的自由です' },
+  tx:   { work:'移植成功後は透析なしで、フルタイムで働ける方も多いです', travel:'薬を忘れなければ、ほぼどこでも旅行できます', home:'透析が不要になるため、自宅での治療装置も不要です', safe:'免疫抑制薬を継続し、定期検査が必要です', freedom:'食事・水分制限が大幅に緩和されます' },
+};
+// ======================================================
+// CARD VIEWER
+// ======================================================
+let CV = { type:'therapy', id:null, idx:0 };
+function startTherapy(id) { CV={type:'therapy',id,idx:0}; renderCV(); go('s-card-viewer'); }
+function startStory(id)   { CV={type:'story',  id,idx:0}; renderCV(); go('s-card-viewer'); }
+function cvSrc() { return CV.type==='therapy' ? T[CV.id] : STORIES.find(s=>s.id===CV.id); }
+function renderCV() {
+  const src=cvSrc(), c=src.cards[CV.idx], n=src.cards.length;
+  const hdr=document.getElementById('cv-hdr');
+  hdr.style.background=`linear-gradient(135deg,${src.color}cc,${src.color})`;
+  document.getElementById('cv-title').textContent = src.icon+' '+src.name;
+  document.getElementById('cv-pfill').style.width = `${((CV.idx+1)/n)*100}%`;
+  document.getElementById('cv-plbl').textContent  = `${CV.idx+1} / ${n}`;
+  document.getElementById('cv-emoji').textContent = c.e;
+  document.getElementById('cv-ctitle').textContent= c.t;
+  document.getElementById('cv-cbody').textContent = c.b;
+  const nb=document.getElementById('cv-next');
+  nb.textContent       = CV.idx===n-1 ? '完了 ✓' : '次へ →';
+  nb.style.background  = src.color;
+  nb.style.borderColor = src.color;
+}
+function cardNext() {
+  const src=cvSrc();
+  if (CV.idx < src.cards.length-1) { CV.idx++; renderCV(); window.scrollTo(0,0); return; }
+  const hdr=document.getElementById('done-hdr');
+  hdr.style.background=`linear-gradient(135deg,${src.color}cc,${src.color})`;
+  document.getElementById('done-title').textContent = src.icon+' '+src.name;
+  document.getElementById('done-sub').textContent   = src.name+'の全ての説明を読みました';
+  document.getElementById('done-score-label').textContent = src.name+'について';
+  document.getElementById('done-score-num').textContent   = '100';
+  document.getElementById('done-score-stars').textContent = '🌟🌟🌟🌟🌟';
+  document.getElementById('done-replay').onclick = ()=>{ CV.idx=0; renderCV(); go('s-card-viewer'); };
+  const extra=document.getElementById('done-extra');
+  extra.innerHTML = CV.type==='story'
+    ? `<button class="btn ghost" onclick="go('s-stories')" style="margin-bottom:10px;">📚 他のストーリーを見る</button>`
+    : `<button class="btn ghost" onclick="go('s-therapy-top')" style="margin-bottom:10px;">📖 他の治療法を見る</button>`;
+  go('s-done');
+}
+function cardBack() { if(CV.idx>0){CV.idx--;renderCV();window.scrollTo(0,0);}else goBack(); }
+// ======================================================
+// FAQ GRID + CARD VIEWER
+// ======================================================
+function buildFaqGrid() {
+  document.getElementById('faq-grid').innerHTML = FAQS.map(f =>
+    `<button class="faq-btn" onclick="showFaq('${f.id}')">
+       <span class="fi">${f.icon}</span>
+       <span class="fl">${f.label}</span>
+       <div class="fq">${f.q}</div>
+     </button>`
+  ).join('');
+}
+function buildWorryGrid() {
+  const ids=['life','money','work','pain','travel','change'];
+  document.getElementById('worry-grid').innerHTML = ids.map(id=>{
+    const f=FAQS.find(x=>x.id===id);
+    return `<button class="tile-btn" onclick="showFaq('${f.id}')">
+      <span class="t-ico">${f.icon}</span>
+      <span class="t-lbl">${f.label}</span>
+      <div class="t-sub">${f.short}</div>
+    </button>`;
+  }).join('');
+}
+let FV = { id:null, idx:0 };
+function showFaq(id) { FV={id,idx:0}; renderFaq(); go('s-faq'); }
+function renderFaq() {
+  const f=FAQS.find(x=>x.id===FV.id);
+  const c=f.cards[FV.idx], n=f.cards.length;
+  document.getElementById('faq-htitle').textContent = f.label;
+  document.getElementById('faq-content').innerHTML = `
+    <div class="ans-card">
+      <div class="ai">${f.icon}</div>
+      <div class="aq">${f.q}</div>
+      <div class="aa">${f.short}</div>
+    </div>
+    <div class="prog-wrap"><div class="prog-fill" style="width:${((FV.idx+1)/n)*100}%"></div></div>
+    <div class="prog-lbl">${FV.idx+1} / ${n}</div>
+    <div class="big-card" style="min-height:220px;">
+      <div class="be-wrap">${c.e}</div>
+      <div class="bt">${c.t}</div>
+      <div class="bb">${c.b}</div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:10px;">
+      <button class="btn ghost" style="flex:1;margin-bottom:0;${FV.idx===0?'opacity:0.35;pointer-events:none;':''}"
+        onclick="faqPrev('${f.id}')">← 前の情報</button>
+      <button class="btn primary" style="flex:1;margin-bottom:0;" onclick="faqNext('${f.id}')">
+        ${FV.idx===n-1?'✓ 一覧に戻る':'次の情報 →'}
+      </button>
+    </div>
+  `;
+}
+function faqNext(id) {
+  const f=FAQS.find(x=>x.id===id);
+  if (FV.idx >= f.cards.length-1) { goBack(); return; }
+  FV.idx++;
+  renderFaq(); window.scrollTo(0,0);
+}
+function faqPrev(id) {
+  if(FV.idx>0){ FV.idx--; renderFaq(); window.scrollTo(0,0); }
+}
+// ======================================================
+// STORIES
+// ======================================================
+function buildStoryList() {
+  document.getElementById('story-list').innerHTML = STORIES.map(s=>`
+    <div class="story-card" onclick="startStory('${s.id}')">
+      <div class="sc-ico">${s.icon}</div>
+      <div class="sc-body">
+        <div class="sc-name">${s.name}</div>
+        <div class="sc-prev">${s.preview}</div>
+        <span class="sc-tag" style="background:${s.color}18;color:${s.color};">${T[s.therapy].name}</span>
+      </div>
+      <div class="sc-arr">›</div>
+    </div>`).join('');
+}
+// ======================================================
+// GAME
+// ======================================================
+let GS = { step:0, answers:[] };
+function gameStart() { GS={step:0,answers:[]}; renderGame(); go('s-game'); }
+function renderGame() {
+  const step=GAME.steps[GS.step], total=GAME.steps.length;
+  document.getElementById('gm-pfill').style.width=`${((GS.step+1)/total)*100}%`;
+  document.getElementById('gm-plbl').textContent=`質問 ${GS.step+1} / ${total}`;
+  const prev=GS.answers[GS.step];
+  let html=`<div class="game-q">Q${GS.step+1}. ${step.q}</div>`;
+  step.opts.forEach((o,i)=>{
+    const sel=prev===i?' picked':'';
+    html+=`<button class="game-opt${sel}" onclick="gameAns(${i},this)">${o.l}</button>`;
+  });
+  document.getElementById('game-content').innerHTML=html;
+}
+function gameAns(i, btn) {
+  document.querySelectorAll('.game-opt').forEach((b,j)=>{ b.disabled=true; if(j===i)b.classList.add('picked'); });
+  GS.answers[GS.step]=i;
+  setTimeout(()=>{ if(GS.step<GAME.steps.length-1){GS.step++;renderGame();window.scrollTo(0,0);}else calcAndShowResult(); }, 320);
+}
+function gamePrev() { if(GS.step>0){GS.step--;renderGame();window.scrollTo(0,0);}else goBack(); }
+function calcAndShowResult() {
+  const pScores={work:0,travel:0,home:0,safe:0,freedom:0};
+  GS.answers.forEach((ai,si)=>{
+    const s=GAME.steps[si].opts[ai].s;
+    Object.keys(s).forEach(k=>{ if(pScores[k]!==undefined)pScores[k]+=s[k]; });
+  });
+  const sorted=PRIORITIES.slice().sort((a,b)=>pScores[b.id]-pScores[a.id]);
+  const maxScore=Math.max(...Object.values(pScores),1);
+  const topId=sorted[0].id;
+  const type=TYPES[topId];
+  let html=`
+    <div class="result-hero">
+      <div class="rh-label">あなたのタイプ</div>
+      <div class="rh-ico">${type.icon}</div>
+      <div class="rh-type">${type.label}</div>
+      <div class="rh-pct">あなたと似た方 <strong>${type.pct}</strong>%</div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">あなたが大切にしていること</div>
+      ${sorted.map(p=>{
+        const sc=pScores[p.id];
+        const stars=Math.max(1,Math.round((sc/maxScore)*5));
+        return `<div class="pri-row">
+          <div class="pr-ico">${p.icon}</div>
+          <div class="pr-lbl">${p.label}</div>
+          <div class="pr-star">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="font-size:1.05rem;font-weight:700;color:var(--primary);margin:0 0 12px;">各治療法と「${sorted[0].label}」</div>
+  `;
+  ['hd','hhd','capd','apd','tx'].forEach(id=>{
+    const t=T[id];
+    const desc=THERAPY_PRIORITY[id][topId];
+    html+=`
+    <div class="tr-card">
+      <div class="tr-hd">
+        <div class="tr-ico-wrap" style="background:${t.bg};">${t.icon}</div>
+        <div class="tr-name" style="color:${t.color};">${t.name}</div>
+      </div>
+      <div class="tr-pts">${desc}</div>
+      <button class="tr-more" style="background:${t.bg};color:${t.color};" onclick="startTherapy('${id}')">詳しく見る →</button>
+    </div>`;
+  });
+  _lastResultData = { type, sorted, pScores, maxScore };
+  document.getElementById('result-content').innerHTML=html;
+  go('s-result');
+}
+// ======================================================
+// FONT TOGGLE
+// ======================================================
+function toggleFont() {
+  document.documentElement.classList.toggle('large');
+  localStorage.setItem('largeTxt', document.documentElement.classList.contains('large') ? '1' : '');
+}
+(function(){
+  if (localStorage.getItem('largeTxt')) document.documentElement.classList.add('large');
+})();
+// ======================================================
+// DOCTOR VIEW
+// ======================================================
+let _lastResultData = null;
+function showDoctorView() {
+  if (!_lastResultData) return;
+  const { type, sorted, pScores, maxScore } = _lastResultData;
+  let html = `
+    <div class="dv-type-card">
+      <div class="dt-ico">${type.icon}</div>
+      <div class="dt-type">${type.label}</div>
+    </div>
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title" style="margin-bottom:16px;">大切にしていること（優先順）</div>
+  `;
+  sorted.forEach(p => {
+    const sc = pScores[p.id];
+    const stars = Math.max(1, Math.round((sc / maxScore) * 5));
+    html += `<div class="dv-pri-row">
+      <div class="dp-ico">${p.icon}</div>
+      <div class="dp-lbl">${p.label}</div>
+      <div class="dp-star">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</div>
+    </div>`;
+  });
+  html += `</div>`;
+  document.getElementById('dv-content').innerHTML = html;
+  go('s-doctor');
+}
+// ======================================================
+// INIT
+// ======================================================
+buildWorryGrid();
+buildFaqGrid();
+buildStoryList();
+</script>
+</body>
+</html>
