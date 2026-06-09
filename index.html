@@ -61,6 +61,7 @@
     .c-capd .icon-wrap { background: #f5f3ff; }
     .c-apd  .icon-wrap { background: #eef2ff; }
     .c-tx   .icon-wrap { background: #fef2f2; }
+    .c-ckm  .icon-wrap { background: #f0fdf4; }
     .c-home .icon-wrap { background: var(--primary-light); }
     /* ── Card ── */
     .card {
@@ -319,6 +320,7 @@
     .tb.c-hhd  { border-color: #a7f3d0; }
     .tb.c-pd   { border-color: #ddd6fe; }
     .tb.c-tx   { border-color: #fecaca; }
+    .tb.c-ckm  { border-color: #86efac; }
     .tb.c-home { border-color: #bfdbfe; }
     /* ── Compare Screen ── */
     .cmp-criterion {
@@ -382,22 +384,61 @@
       <div class="hero-title">あなたらしい人生を<br>続けるために</div>
       <div class="hero-lead">一緒に考えてみませんか？</div>
     </div>
-    <div class="grid-3" style="margin-bottom:16px;">
-      <button class="main-tile" onclick="go('s-therapy-top')">
-        <span class="mt-ico" style="font-size:2.6rem;">📖</span>
-        <span class="mt-lbl" style="font-size:0.88rem;">治療法を<br>知る</span>
-        <span class="mt-sub">詳しく解説</span>
-      </button>
-      <button class="main-tile" onclick="gameStart()" style="border:2.5px solid var(--primary);">
-        <span class="mt-ico" style="font-size:2.6rem;">🔍</span>
-        <span class="mt-lbl" style="font-size:0.88rem;color:var(--primary);">自分に合う<br>治療を探す</span>
-        <span class="mt-sub" style="color:var(--primary);opacity:0.75;">5問で診断</span>
-      </button>
-      <button class="main-tile" onclick="go('s-compare')" style="border:2.5px solid #8e44ad;">
-        <span class="mt-ico" style="font-size:2.6rem;">📊</span>
-        <span class="mt-lbl" style="font-size:0.88rem;color:#8e44ad;">治療法を<br>比べる</span>
-        <span class="mt-sub" style="color:#8e44ad;opacity:0.75;">一覧比較</span>
-      </button>
+    <div style="margin-bottom:20px;">
+      <!-- 上段 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <button onclick="go('s-therapy-top')" style="
+          background:linear-gradient(135deg,#1a6cb5,#3498db);
+          color:#fff; border:none; border-radius:20px;
+          padding:22px 10px 18px; cursor:pointer; text-align:center;
+          box-shadow:0 6px 20px rgba(26,108,181,0.3);
+          display:flex;flex-direction:column;align-items:center;gap:0;
+          transition:transform 0.12s;
+        " onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform=''" ontouchstart="this.style.transform='scale(0.96)'" ontouchend="this.style.transform=''">
+          <span style="font-size:3rem;display:block;margin-bottom:10px;line-height:1;">📖</span>
+          <span style="font-size:1rem;font-weight:800;line-height:1.4;display:block;margin-bottom:5px;">治療法を<br>知る</span>
+          <span style="font-size:0.78rem;opacity:0.85;font-weight:600;">詳しく解説</span>
+        </button>
+        <button onclick="go('s-compare')" style="
+          background:linear-gradient(135deg,#7d3cac,#a569bd);
+          color:#fff; border:none; border-radius:20px;
+          padding:22px 10px 18px; cursor:pointer; text-align:center;
+          box-shadow:0 6px 20px rgba(125,60,172,0.3);
+          display:flex;flex-direction:column;align-items:center;gap:0;
+          transition:transform 0.12s;
+        " onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform=''" ontouchstart="this.style.transform='scale(0.96)'" ontouchend="this.style.transform=''">
+          <span style="font-size:3rem;display:block;margin-bottom:10px;line-height:1;">📊</span>
+          <span style="font-size:1rem;font-weight:800;line-height:1.4;display:block;margin-bottom:5px;">治療法を<br>比べる</span>
+          <span style="font-size:0.78rem;opacity:0.85;font-weight:600;">一覧比較</span>
+        </button>
+      </div>
+      <!-- 下段 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <button onclick="go('s-stats')" style="
+          background:linear-gradient(135deg,#1a7a6e,#21a192);
+          color:#fff; border:none; border-radius:20px;
+          padding:22px 10px 18px; cursor:pointer; text-align:center;
+          box-shadow:0 6px 20px rgba(26,122,110,0.3);
+          display:flex;flex-direction:column;align-items:center;gap:0;
+          transition:transform 0.12s;
+        " onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform=''" ontouchstart="this.style.transform='scale(0.96)'" ontouchend="this.style.transform=''">
+          <span style="font-size:3rem;display:block;margin-bottom:10px;line-height:1;">👥</span>
+          <span style="font-size:1rem;font-weight:800;line-height:1.4;display:block;margin-bottom:5px;">みんなは<br>どう選んでる？</span>
+          <span style="font-size:0.78rem;opacity:0.85;font-weight:600;">日本の統計</span>
+        </button>
+        <button onclick="gameStart()" style="
+          background:linear-gradient(135deg,var(--primary),#2980b9);
+          color:#fff; border:none; border-radius:20px;
+          padding:22px 10px 18px; cursor:pointer; text-align:center;
+          box-shadow:0 6px 20px rgba(15,76,129,0.35);
+          display:flex;flex-direction:column;align-items:center;gap:0;
+          transition:transform 0.12s;
+        " onmousedown="this.style.transform='scale(0.96)'" onmouseup="this.style.transform=''" ontouchstart="this.style.transform='scale(0.96)'" ontouchend="this.style.transform=''">
+          <span style="font-size:3rem;display:block;margin-bottom:10px;line-height:1;">🔍</span>
+          <span style="font-size:1rem;font-weight:800;line-height:1.4;display:block;margin-bottom:5px;">自分に合う<br>治療を探す</span>
+          <span style="font-size:0.78rem;opacity:0.85;font-weight:600;">5問で診断</span>
+        </button>
+      </div>
     </div>
     <div class="divider">何が心配ですか？</div>
     <div class="grid-2" id="worry-grid"></div>
@@ -438,7 +479,7 @@
     </button>
     <button class="tb c-hhd" onclick="startTherapy('hhd')" style="border:2px solid #1a8c78;background:#f0fdf9;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <span style="font-size:0.75rem;font-weight:800;background:#1a8c78;color:#fff;padding:3px 10px;border-radius:20px;letter-spacing:0.05em;">⭐ 当院一押し</span>
+        <span style="font-size:0.75rem;font-weight:800;background:#1a8c78;color:#fff;padding:3px 10px;border-radius:20px;letter-spacing:0.05em;">📊 当院の実績が多い治療法</span>
         <span style="font-size:0.75rem;color:#1a8c78;font-weight:700;">移植に匹敵する長生き実績</span>
       </div>
       <div class="tb-head" style="margin-bottom:12px;">
@@ -494,6 +535,137 @@
       </div>
       <div class="tb-arr">詳しく見る ›</div>
     </button>
+    <button class="tb c-ckm" onclick="startTherapy('ckm')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#f0fdf4;">🌿</div>
+        <div>
+          <div class="tb-name">保存的腎臓療法（CKM）</div>
+          <div class="tb-tagline">透析をせず、自分らしい生活を支える治療</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">大切なこと</span>
+        <span class="tb-txt">「何もしない」治療ではなく、苦痛を和らげながら自分らしく過ごすことを支える治療</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">腎機能の低下は続くため、今後起こりうる症状をあらかじめ理解しておくことが大切</span>
+      </div>
+      <div class="tb-arr">詳しく見る ›</div>
+    </button>
+  </div>
+</div>
+<!-- ==================== STATS SCREEN ==================== -->
+<div class="screen" id="s-stats">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">みんなはどう選んでる？</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <!-- 導入カード -->
+    <div style="background:linear-gradient(135deg,#0f4c81,#2980b9);color:#fff;border-radius:20px;padding:20px 18px;margin-bottom:16px;box-shadow:0 6px 20px rgba(15,76,129,0.2);">
+      <div style="font-size:0.8rem;font-weight:700;opacity:0.85;margin-bottom:10px;letter-spacing:0.05em;">🇯🇵 日本の現状</div>
+      <div style="font-size:1.05rem;font-weight:800;margin-bottom:8px;">現在、約<span style="font-size:1.5rem;">34万人</span>の方が<br>透析を受けながら生活しています。</div>
+      <div style="font-size:0.9rem;opacity:0.9;margin-bottom:10px;">毎年 <strong>約3万6千人</strong> の方が新たに透析を始めています。</div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:12px;padding:10px 12px;font-size:0.88rem;line-height:1.7;">透析は特別な治療ではなく、多くの方が仕事や家庭生活を続けながら受けている治療です。</div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-body">では、どの治療を選んでいるのでしょうか？</div>
+    </div>
+
+    <!-- 透析を始める患者さん -->
+    <div style="background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);margin-bottom:14px;">
+      <div style="background:#2874a6;color:#fff;padding:12px 16px;font-size:0.95rem;font-weight:800;">🩸 透析を始める患者さん</div>
+      <div style="padding:16px;">
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.95rem;font-weight:700;">🏥 血液透析</span>
+            <span style="font-size:1.1rem;font-weight:900;color:#2874a6;">約93%</span>
+          </div>
+          <div style="background:#e2e8f0;border-radius:6px;height:10px;overflow:hidden;">
+            <div style="width:93%;height:100%;background:linear-gradient(90deg,#2874a6,#3498db);border-radius:6px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.95rem;font-weight:700;">🫃 腹膜透析</span>
+            <span style="font-size:1.1rem;font-weight:900;color:#8e44ad;">約7%</span>
+          </div>
+          <div style="background:#e2e8f0;border-radius:6px;height:10px;overflow:hidden;">
+            <div style="width:7%;height:100%;background:linear-gradient(90deg,#8e44ad,#a569bd);border-radius:6px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 現在透析を受けている患者さん -->
+    <div style="background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--border);margin-bottom:14px;">
+      <div style="background:#1a6cb5;color:#fff;padding:12px 16px;font-size:0.95rem;font-weight:800;">👥 現在透析を受けている患者さん</div>
+      <div style="padding:16px;">
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.95rem;font-weight:700;">🏥 血液透析</span>
+            <span style="font-size:1.1rem;font-weight:900;color:#1a6cb5;">約96%</span>
+          </div>
+          <div style="background:#e2e8f0;border-radius:6px;height:10px;overflow:hidden;">
+            <div style="width:96%;height:100%;background:linear-gradient(90deg,#1a6cb5,#3498db);border-radius:6px;"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.95rem;font-weight:700;">🫃 腹膜透析</span>
+            <span style="font-size:1.1rem;font-weight:900;color:#8e44ad;">約3%</span>
+          </div>
+          <div style="background:#e2e8f0;border-radius:6px;height:10px;overflow:hidden;">
+            <div style="width:3%;height:100%;background:linear-gradient(90deg,#8e44ad,#a569bd);border-radius:6px;"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:0.95rem;font-weight:700;">🏡 在宅血液透析</span>
+            <span style="font-size:1.1rem;font-weight:900;color:#1a8c78;">約0.2%</span>
+          </div>
+          <div style="background:#e2e8f0;border-radius:6px;height:10px;overflow:hidden;">
+            <div style="width:0.2%;height:100%;background:#1a8c78;border-radius:6px;min-width:4px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 腎移植（独立ボックス） -->
+    <div style="background:#f0f7ff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid #bfdbfe;margin-bottom:20px;">
+      <div style="background:#dbeafe;color:#3b6fba;padding:12px 16px;font-size:0.92rem;font-weight:700;">🫀 腎移植（透析とは別の選択肢）</div>
+      <div style="padding:16px;">
+        <div style="background:#eff6ff;border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:0.83rem;color:#4a7ab5;line-height:1.7;">
+          透析を受けている約34万人と比べると、年間約2,000件はとても少ない数です。腎移植は大切な選択肢ですが、希望される方に対して提供できる腎臓が限られているため、移植まで一定の待機期間を要することがあります。
+        </div>
+        <div style="font-size:0.95rem;font-weight:700;color:#3b6fba;margin-bottom:12px;">日本での年間移植件数　約2,000件</div>
+        <div style="display:flex;gap:10px;margin-bottom:14px;">
+          <div style="flex:1;background:#fff;border-radius:12px;padding:12px;text-align:center;border:1px solid #bfdbfe;">
+            <div style="font-size:0.8rem;color:#5a8fd0;font-weight:700;margin-bottom:4px;">生体腎移植</div>
+            <div style="font-size:1.2rem;font-weight:800;color:#3b6fba;">約1,600件</div>
+            <div style="font-size:0.72rem;color:#93c5fd;margin-top:4px;">ご家族などから提供</div>
+          </div>
+          <div style="flex:1;background:#fff;border-radius:12px;padding:12px;text-align:center;border:1px solid #bfdbfe;">
+            <div style="font-size:0.8rem;color:#5a8fd0;font-weight:700;margin-bottom:4px;">献腎移植</div>
+            <div style="font-size:1.2rem;font-weight:800;color:#3b6fba;">約400件</div>
+            <div style="font-size:0.72rem;color:#93c5fd;margin-top:4px;">平均15年以上待機</div>
+          </div>
+        </div>
+        <div style="font-size:0.85rem;color:#6b9fd4;line-height:1.7;">腎臓を希望する患者さんは非常に多く、献腎移植は長期間待機することも少なくありません。</div>
+      </div>
+    </div>
+
+    <!-- 締めメッセージ -->
+    <div style="background:linear-gradient(135deg,var(--primary),#2980b9);color:#fff;border-radius:20px;padding:24px 20px;text-align:center;box-shadow:0 8px 24px rgba(15,76,129,0.2);margin-bottom:16px;">
+      <div style="font-size:1.2rem;font-weight:900;line-height:1.6;margin-bottom:12px;">📌 数が多い治療が、<br>あなたに一番合う治療とは限りません。</div>
+      <div style="font-size:0.95rem;opacity:0.9;line-height:1.7;">大切なのは、「これからどんな人生を送りたいか」を一緒に考えることです。</div>
+    </div>
+
+    <button class="btn primary" onclick="gameStart()" style="margin-bottom:10px;">🔍 自分に合う治療を探す</button>
+    <button class="btn ghost" onclick="go('s-top')">🏠 トップへ</button>
   </div>
 </div>
 <!-- ==================== COMPARE SCREEN ==================== -->
@@ -668,7 +840,7 @@
   <div class="content">
     <button class="tb c-hhd" onclick="startTherapy('hhd')" style="border:2px solid #1a8c78;background:#f0fdf9;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <span style="font-size:0.75rem;font-weight:800;background:#1a8c78;color:#fff;padding:3px 10px;border-radius:20px;letter-spacing:0.05em;">⭐ 当院一押し</span>
+        <span style="font-size:0.75rem;font-weight:800;background:#1a8c78;color:#fff;padding:3px 10px;border-radius:20px;letter-spacing:0.05em;">📊 当院の実績が多い治療法</span>
         <span style="font-size:0.75rem;color:#1a8c78;font-weight:700;">移植に匹敵する長生き実績</span>
       </div>
       <div class="tb-head" style="margin-bottom:12px;">
@@ -952,6 +1124,35 @@ const T = {
       {e:'👤', t:'こんな方に向いているかも', b:'日中に仕事・学業を続けたい方。昼間の操作を減らしたい方。機械操作に抵抗のない方。'},
     ]
   },
+  ckm: {
+    name:'保存的腎臓療法（CKM）', icon:'🌿', color:'#4a7c59', bg:'#f0fdf4', type:'therapy',
+    cards:[
+      {e:'🌿', t:'まず一番大事なことです',
+       b:'CKMは「何もしない」という治療ではありません。\n\n「透析をしない代わりに放置する」のではなく、できるだけ苦しくないように、できるだけ自分らしい生活が送れるように支える治療です。'},
+      {e:'✅', t:'透析にはメリットもあります',
+       b:'透析をすると、\n・尿毒症を改善できる\n・命を長くできる可能性がある\n・食事や水分の制限が少し楽になる場合もある\n\nというメリットがあります。\n\n一方で、\n・週3回通院\n・1回4時間程度の治療\n・血圧低下や疲労感\n・家族の負担\n\nなどもあります。'},
+      {e:'💭', t:'CKMは「価値観を大切にして選ぶ治療」です',
+       b:'CKMは「透析が嫌だから選ぶ治療」ではありません。\n\n例えば、\n「残された時間は家で過ごしたい」\n「病院より家族との時間を大切にしたい」\n「体力的に透析がつらそう」\n\nという価値観を大切にして選ぶ治療です。\n\nつまり、何を一番大切にしたいかを考える治療です。'},
+      {e:'🏥', t:'CKMでも治療は続きます',
+       b:'・血圧をみる\n・むくみを取る\n・貧血を治療する\n・かゆみや吐き気を和らげる\n・息苦しさを改善する\n・食事の相談をする\n\nなどは引き続き行います。\n\n「もう病院に来なくていい」という意味ではありません。'},
+      {e:'🌍', t:'最近の考え方は変わってきています',
+       b:'昔は、「透析するか、しないか」という話でした。\n\n今は、「その人にとって一番幸せな人生は何か」を考える時代です。\n\nそのため、\n・血液透析\n・腹膜透析\n・腎移植\n・CKM（保存的腎臓療法）\n\nこれらを並べて説明することが国際的にも重視されています。'},
+      {e:'❓', t:'よく聞かれる質問',
+       b:'「一度CKMを選んだら、透析はもうできませんか？」\n\nいいえ、できます。\n\n途中で透析を始めることもあります。逆に、透析をしていた方がCKMへ移行することもあります。\n\n人生や病状に合わせて、一緒に考えていけば大丈夫です。'},
+      {e:'💬', t:'先生から一言',
+       b:'「正しい治療法」は人それぞれ違います。\n\n私は患者さんに、「長生きしたいですか？」だけではなく、「これからどんな生活を送りたいですか？」ということを一緒に考えたいと思っています。\n\n透析を選んでも、CKMを選んでも、私たちは最後までサポートします。\n\n「今日は結論を出す必要はありません。ご家族とも相談していただいて大丈夫です。一番大切なのは、『ご本人が納得して選ぶこと』です。私たちも一緒に考えていきます。」'},
+      {e:'⚠️', t:'CKMを選んだ場合、今後起こりうること',
+       b:'<strong>CKMを選ぶということは…</strong>\n\n腎機能がさらに低下すると、<span style="color:#e53e3e;font-weight:700;">特にGFRがおおよそ10mL/分/1.73㎡前後以下</span>になってくる頃から、以下のような症状が起こる可能性があります。\n\n🫁 息切れ・呼吸苦（肺に水がたまることがあります）\n🦵 むくみ\n😣 強い倦怠感\n🤢 食欲低下・吐き気\n🪲 全身のかゆみ\n😴 眠気や意識がぼんやりする\n❤️ 高カリウム血症による命に関わる不整脈\n\nなどが起こる可能性があります。\n\n<strong>私たちは、その苦痛をできるだけ和らげる治療を行いますが、腎臓の働きを元に戻すことはできません。</strong>'},
+      {e:'🤲', t:'CKMでも苦痛をできるだけ和らげます',
+       b:'CKMを選んだからといって「何もしません」ということではありません。\n\n例えば、このような症状が出た際には、\n\n🫁 <strong>息苦しさ・呼吸苦</strong>\n→ 酸素投与、利尿剤による体液調整\n\n🦵 <strong>むくみ</strong>\n→ 利尿剤の調整、塩分・水分管理の指導\n\n😣 <strong>強いだるさ・貧血</strong>\n→ 造血剤（ESA）投与、輸血\n\n🤢 <strong>吐き気・食欲低下</strong>\n→ 制吐剤、栄養補助の相談\n\n🪲 <strong>かゆみ</strong>\n→ 内服薬・外用薬による緩和\n\nこのような緩和ケアを組み合わせながら、できるだけ苦痛の少ない時間を過ごしていただけるよう、最後まで一緒に支えていきます。'},
+      {e:'🔄', t:'途中で気持ちが変わっても大丈夫です',
+       b:'もし途中で、「やはり透析を受けたい」というお気持ちになれば、その時点で透析について改めて一緒に考えることもできます。\n\n逆に、「最後までCKMで過ごしたい」というお気持ちであれば、その意思を尊重しながら最後まで支えていきます。\n\n大切なのは、メリットだけでなく、起こりうる現実も理解したうえで、ご本人が納得して選択することです。'},
+      {e:'👨‍👩‍👧', t:'ご本人だけでなく、ご家族とも意思を共有してください',
+       b:'CKMを選ぶ場合は、ご本人だけでなく、<strong>ご家族とも十分に話し合い、意思を共有しておくことが非常に重要です。</strong>\n\nさらに、将来、ご本人が自分の意思を伝えられなくなることもあります。\n\nだから、\n・透析を希望するか\n・最後までCKMを希望するか\n・救急搬送を希望するか\n・心肺蘇生を希望するか\n\nについて、<strong>ご本人・ご家族・医療者で考えをできるだけ一致させておくことが大切です。</strong>'},
+      {e:'🌸', t:'最後に',
+       b:'CKMは「治療をあきらめる」ことではありません。\n\nしかし、「自然だから苦しまない」という治療でもありません。\n\nだからこそ、起こりうる経過を理解し、ご本人とご家族が納得して選択することが大切です。\n\n<strong>私たちは、その選択を最後まで一緒に支えていきます。</strong>'},
+    ]
+  },
   tx: {
     name:'腎移植', icon:'🫀', color:'#c0392b', bg:'#fef2f2', type:'therapy',
     cards:[
@@ -1063,6 +1264,24 @@ const STORIES = [
       {e:'✅', t:'今も現役で働いています',          b:'透析を始めて3年。Aさんは今も会社に通っています。「透析してから体が楽になった」と話します。'},
       {e:'💬', t:'Aさんから一言',                 b:'「透析＝人生終わり、と思っていました。でも仕事も続けられるし、釣りにも行けています。まず主治医に相談してよかった。」'},
     ]},
+  { id:'d', name:'Dさん 78歳 男性', icon:'👴', color:'#2874a6', therapy:'hd',
+    preview:'「透析で、私は第二の人生をもらいました」\n\n腎臓が悪くなり、血液透析・腹膜透析・CKMの選択肢を示された78歳のDさん。最初は「もう十分生きた」と思っていましたが、家族との話し合いを経て、自分の意思で透析を選びました。始めてみると体が楽になり、孫の運動会にも参加できるように。制限が増えたのではなく、自由が戻ってきたと感じています。',
+    cards:[
+      {e:'👴', t:'Dさん 78歳',
+       b:'私は78歳です。腎臓が悪くなり、先生から血液透析・腹膜透析・CKM（保存的腎臓療法）という選択肢があることを教えていただきました。\n\n先生は、「どれが正解というわけではありません。あなたがどんな人生を送りたいか、一緒に考えましょう」と言ってくださいました。'},
+      {e:'💭', t:'最初は「透析まではしなくてもいいかな」と思っていました',
+       b:'私は年齢も年齢ですし、「もう十分生きた。透析まではしなくてもいいかな」と思っていました。\n\nCKMという選択肢があることを知り、「その道も自分らしい生き方なのかもしれない」とも考えました。'},
+      {e:'👨‍👩‍👧‍👦', t:'家族との話し合い',
+       b:'しかし、家族と何度も話し合いました。\n\n妻は、「無理はしてほしくない。でも、まだ一緒にいてほしい」と言いました。\n\n孫は、「おじいちゃん、来年の運動会も見に来てね」と言いました。\n\nその言葉を聞いて、私はもう一度、自分の人生を考えました。そして、「自分の意思で透析を受けよう」と決めました。'},
+      {e:'😮', t:'透析を始めると、不思議なことが起こりました',
+       b:'透析を始める前は、少し歩くだけで息切れし、何をするにも体が重く、家で横になっている時間が増えていました。「今日はやめておこう」が口ぐせでした。\n\nところが透析を始めると、体が少しずつ楽になり、歩けるようになり、食事もおいしく感じられるようになりました。\n\n私は気づきました。制限が増えたのではなく、自由が戻ってきたのです。'},
+      {e:'🍽️', t:'制限の中に、取り戻した自由がありました',
+       b:'好きな時に水を飲めない代わりに、好きな場所へ歩いて行けるようになりました。\n\n好きなだけ食べられない代わりに、家族と同じ食卓を囲んで笑えるようになりました。\n\n透析を始めてから、家族との会話も変わりました。「今日は透析どうだった？」「次の旅行はどこへ行こうか」そんな何気ない会話が増えました。'},
+      {e:'🏃', t:'孫の運動会にも行けました',
+       b:'孫の運動会にも行くことができました。誕生日も一緒に祝うことができました。\n\n普通の人にとっては当たり前の一日かもしれません。でも私にとっては、透析がつないでくれた、かけがえのない一日です。\n\nCKMという選択肢があったからこそ、私は自分で考え、自分で透析を選ぶことができました。だから、つらい日があっても、「これは自分で選んだ人生なんだ」と思うことができます。'},
+      {e:'💬', t:'Dさんから一言',
+       b:'「私は、透析で命を延ばしてもらっただけではありません。第二の人生をいただいたと思っています。\n\n今は、『あと何年生きられるか』ではなく、『今日も家族と笑って過ごせた。ありがたい』そう思いながら毎日を送っています。\n\n透析という選択をして、本当に良かったと心から感謝しています。」'},
+    ]},
   { id:'b', name:'Bさん 41歳 2児の母', icon:'👩‍👧', color:'#6c5ce7', therapy:'apd',
     preview:'小学生と幼稚園の子どもを育てるBさん。子育て真っ最中の中で腎機能が低下し、「子どもとの時間を大切にしながら治療を続けるには、どの方法が自分に合っているのだろう」と考えるようになりました。\n\n最初は「透析を始めたら、もう普通の生活は送れないのではないか」と不安でいっぱいでした。しかし主治医や家族と何度も話し合い、自分の生活に合った腹膜透析（PD）を選択しました。\n\n自宅で治療を行えるため、子どもの送り迎えや学校行事にも参加できています。もちろん毎日の自己管理は必要ですが、家族の協力もあり、少しずつ治療のある生活にも慣れてきました。\n\n今では、「病気があっても、子どもたちとの時間をあきらめなくてよかった」と笑顔で話しています。',
     cards:[
@@ -1088,7 +1307,7 @@ const STORIES = [
 // 治療法ごとの結果画面説明文
 const TREAT_RESULT_DESC = {
   hd:   '週3回クリニックへ通い、看護師・臨床工学技士が常にサポート。安心して任せられます。',
-  hhd:  '自宅で週5〜6回透析。スケジュールの自由度が高く、仕事も続けやすいです。当院一押し。',
+  hhd:  '自宅で週5〜6回透析。スケジュールの自由度が高く、仕事も続けやすいです。当院で実績の多い治療法です。',
   capd: '1日3〜4回、自分でバッグ交換。機械不要で旅行先でも治療できます。',
   apd:  '夜間に機械が自動透析。昼間は自由に活動でき、仕事にも向いています。',
   tx:   '透析不要になり、食事・水分制限も大幅に緩和。待機期間があります。',
@@ -1146,7 +1365,7 @@ function renderCV() {
   document.getElementById('cv-plbl').textContent  = `${CV.idx+1} / ${n}`;
   document.getElementById('cv-emoji').textContent = c.e;
   document.getElementById('cv-ctitle').textContent= c.t;
-  document.getElementById('cv-cbody').textContent = c.b;
+  document.getElementById('cv-cbody').innerHTML = c.b.replace(/\n/g,'<br>');
   const nb=document.getElementById('cv-next');
   nb.textContent       = CV.idx===n-1 ? '完了 ✓' : '次へ →';
   nb.style.background  = src.color;
@@ -1332,6 +1551,11 @@ function calcAndShowResult() {
       <button class="tr-more" style="background:${t.bg};color:${t.color};" onclick="startTherapy('${id}')">詳しく見る →</button>
     </div>`;
   });
+  html += `
+    <div style="background:#fff8e1;border:1.5px solid #f59e0b;border-radius:16px;padding:16px 14px;margin-top:8px;">
+      <div style="font-size:0.85rem;font-weight:800;color:#92400e;margin-bottom:6px;">⚠️ この結果についての大切なお知らせ</div>
+      <div style="font-size:0.82rem;color:#78350f;line-height:1.75;">この診断結果は、<strong>生活スタイルの参考</strong>としてご活用ください。医学的な適応を保証するものではありません。<br>合併症・腎機能・全身状態によっては、選べない治療法もあります。<br>最終的な治療の選択は、<strong>必ず主治医とご相談のうえ</strong>決定してください。</div>
+    </div>`;
   _lastResultData = { type, groupRanked, tScores };
   document.getElementById('result-content').innerHTML=html;
   go('s-result');
@@ -1353,7 +1577,29 @@ let _lastResultData = null;
 function showDoctorView() {
   if (!_lastResultData) return;
   const { type, groupRanked } = _lastResultData;
+
+  // 回答から価値観タグを生成
+  const valueTags = [];
+  const answerLabels = GAME.steps.map((step, si) => {
+    const ai = GS.answers[si];
+    return ai !== undefined ? step.opts[ai].l : null;
+  }).filter(Boolean);
+  if (answerLabels.some(l => l.includes('スタッフに任せたい'))) valueTags.push({tag:'🏥 スタッフに任せたい', color:'#2874a6'});
+  if (answerLabels.some(l => l.includes('自分で管理')||l.includes('挑戦したい'))) valueTags.push({tag:'🙋 自己管理に前向き', color:'#1a8c78'});
+  if (answerLabels.some(l => l.includes('減らしたい'))) valueTags.push({tag:'📅 通院を減らしたい', color:'#6c5ce7'});
+  if (answerLabels.some(l => l.includes('協力してもらえる'))) valueTags.push({tag:'👨‍👩‍👧 家族のサポートあり', color:'#e67e22'});
+  if (answerLabels.some(l => l.includes('受け入れられる'))) valueTags.push({tag:'✅ 手術・服薬を受け入れる', color:'#c0392b'});
+  if (answerLabels.some(l => l.includes('避けたい'))) valueTags.push({tag:'⚠️ 手術・服薬を避けたい', color:'#7f8c8d'});
+
   let html = `
+    <div style="background:#fff3cd;border:2px solid #f59e0b;border-radius:16px;padding:16px 14px;margin-bottom:18px;">
+      <div style="font-size:0.8rem;font-weight:800;color:#92400e;margin-bottom:10px;letter-spacing:0.05em;">👤 患者さんが大切にしている価値観</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${valueTags.length > 0
+          ? valueTags.map(v=>`<span style="background:${v.color};color:#fff;font-size:0.85rem;font-weight:700;padding:6px 12px;border-radius:20px;">${v.tag}</span>`).join('')
+          : '<span style="font-size:0.85rem;color:#92400e;">（回答データなし）</span>'}
+      </div>
+    </div>
     <div class="dv-type-card">
       <div class="dt-ico">${type.icon}</div>
       <div class="dt-type">${type.label}</div>
