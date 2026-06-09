@@ -288,6 +288,69 @@
     .dv-pri-row .dp-ico { font-size: 2rem; flex-shrink: 0; }
     .dv-pri-row .dp-lbl { flex: 1; font-size: 1.15rem; font-weight: 700; color: var(--text); }
     .dv-pri-row .dp-star { font-size: 1.3rem; color: #f59e0b; }
+    /* ── Therapy Detail Button ── */
+    .tb {
+      width: 100%; text-align: left; cursor: pointer;
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--r); padding: 18px 16px 16px;
+      margin-bottom: 14px; box-shadow: var(--shadow-sm);
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+    .tb:active { transform: scale(0.98); box-shadow: none; }
+    .tb-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .tb-name { font-size: 1.12rem; font-weight: 800; color: var(--text); line-height: 1.3; }
+    .tb-tagline { font-size: 0.8rem; color: var(--text-sub); margin-top: 3px; }
+    .tb-row { display: flex; gap: 6px; margin-bottom: 6px; align-items: flex-start; }
+    .tb-row:last-of-type { margin-bottom: 0; }
+    .tb-badge {
+      flex-shrink: 0; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.03em;
+      padding: 2px 7px; border-radius: 20px; margin-top: 2px;
+    }
+    .tb-badge.good { background: #d1fae5; color: #065f46; }
+    .tb-badge.caution { background: #fef3c7; color: #92400e; }
+    .tb-txt { font-size: 0.88rem; line-height: 1.6; color: var(--text-sub); flex: 1; }
+    .tb-note {
+      margin-top: 10px; font-size: 0.82rem; line-height: 1.6;
+      background: #fffbeb; border-left: 3px solid #f59e0b;
+      padding: 7px 10px; border-radius: 0 10px 10px 0; color: #92400e;
+    }
+    .tb-arr { text-align: right; color: #cbd5e1; font-size: 1.1rem; margin-top: 8px; }
+    .tb.c-hd   { border-color: #bfdbfe; }
+    .tb.c-hhd  { border-color: #a7f3d0; }
+    .tb.c-pd   { border-color: #ddd6fe; }
+    .tb.c-tx   { border-color: #fecaca; }
+    .tb.c-home { border-color: #bfdbfe; }
+    /* ── Compare Screen ── */
+    .cmp-criterion {
+      background: var(--surface); border-radius: var(--r);
+      margin-bottom: 16px; box-shadow: var(--shadow-sm); overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .cmp-hdr {
+      padding: 11px 16px; font-size: 0.95rem; font-weight: 800; color: #fff;
+    }
+    .cmp-row {
+      padding: 14px 16px; border-bottom: 1px solid var(--border);
+    }
+    .cmp-row:last-child { border-bottom: none; }
+    .cmp-row-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .cmp-row-ico { font-size: 1.3rem; flex-shrink: 0; }
+    .cmp-row-name { font-size: 0.98rem; font-weight: 800; color: var(--text); }
+    .cmp-merit, .cmp-demerit { font-size: 0.86rem; line-height: 1.65; padding: 5px 10px; border-radius: 8px; margin-bottom: 5px; }
+    .cmp-merit   { background: #f0fdf4; color: #065f46; }
+    .cmp-demerit { background: #fffbeb; color: #78350f; }
+    .cmp-merit::before   { content: '◎ '; font-weight: 800; }
+    .cmp-demerit::before { content: '▲ '; font-weight: 800; }
+    .sum-card { background: var(--surface); border-radius: var(--r); padding: 4px 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border); margin-bottom: 16px; }
+    .sum-row { display: flex; align-items: flex-start; gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .sum-row:last-child { border-bottom: none; }
+    .sum-ico { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+    .sum-body { flex: 1; }
+    .sum-name   { font-size: 0.98rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .sum-merit  { font-size: 0.84rem; color: #065f46; margin-bottom: 2px; }
+    .sum-merit::before   { content: '◎ '; font-weight: 800; }
+    .sum-demerit { font-size: 0.84rem; color: #78350f; }
+    .sum-demerit::before { content: '▲ '; font-weight: 800; }
     /* ── FAB ── */
     #fab-home {
       position: fixed; bottom: 22px; right: 16px; z-index: 999;
@@ -319,16 +382,21 @@
       <div class="hero-title">あなたらしい人生を<br>続けるために</div>
       <div class="hero-lead">一緒に考えてみませんか？</div>
     </div>
-    <div class="grid-2" style="margin-bottom:16px;">
+    <div class="grid-3" style="margin-bottom:16px;">
+      <button class="main-tile" onclick="go('s-therapy-top')">
+        <span class="mt-ico" style="font-size:2.6rem;">📖</span>
+        <span class="mt-lbl" style="font-size:0.88rem;">治療法を<br>知る</span>
+        <span class="mt-sub">詳しく解説</span>
+      </button>
       <button class="main-tile" onclick="gameStart()" style="border:2.5px solid var(--primary);">
-        <span class="mt-ico">🎮</span>
-        <span class="mt-lbl" style="color:var(--primary);">自分に合う<br>治療を探す</span>
+        <span class="mt-ico" style="font-size:2.6rem;">🔍</span>
+        <span class="mt-lbl" style="font-size:0.88rem;color:var(--primary);">自分に合う<br>治療を探す</span>
         <span class="mt-sub" style="color:var(--primary);opacity:0.75;">5問で診断</span>
       </button>
-      <button class="main-tile" onclick="go('s-therapy-top')">
-        <span class="mt-ico">📖</span>
-        <span class="mt-lbl">治療法を<br>知る</span>
-        <span class="mt-sub">詳しく解説</span>
+      <button class="main-tile" onclick="go('s-compare')" style="border:2.5px solid #8e44ad;">
+        <span class="mt-ico" style="font-size:2.6rem;">📊</span>
+        <span class="mt-lbl" style="font-size:0.88rem;color:#8e44ad;">治療法を<br>比べる</span>
+        <span class="mt-sub" style="color:#8e44ad;opacity:0.75;">一覧比較</span>
       </button>
     </div>
     <div class="divider">何が心配ですか？</div>
@@ -349,21 +417,245 @@
     <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
   </div>
   <div class="content">
-    <button class="btn c-hd" onclick="startTherapy('hd')">
-      <div class="icon-wrap">🏥</div>
-      <div class="text">病院で受ける透析（HD）<div class="sub">通院→スタッフが管理してくれる透析</div></div>
-      <div class="arr">›</div>
+    <button class="tb c-hd" onclick="startTherapy('hd')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#eff6ff;">🏥</div>
+        <div>
+          <div class="tb-name">施設血液透析（HD）</div>
+          <div class="tb-tagline">病院・クリニックに通院して受ける透析</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">メリット</span>
+        <span class="tb-txt">スタッフに全てお任せできる安心感</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">週3回の通院という時間の縛りと、水分制限</span>
+      </div>
+      <div class="tb-note">⚠️ 自宅での食事・水分管理が寿命には最重要です</div>
+      <div class="tb-arr">詳しく見る ›</div>
     </button>
-    <button class="btn c-home" onclick="go('s-home-therapy')">
-      <div class="icon-wrap">🏠</div>
-      <div class="text">家で受ける透析<div class="sub">在宅血液透析 / 腹膜透析（昼・夜）</div></div>
-      <div class="arr">›</div>
+    <button class="tb c-hhd" onclick="startTherapy('hhd')" style="border:2px solid #1a8c78;background:#f0fdf9;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <span style="font-size:0.75rem;font-weight:800;background:#1a8c78;color:#fff;padding:3px 10px;border-radius:20px;letter-spacing:0.05em;">⭐ 当院一押し</span>
+        <span style="font-size:0.75rem;color:#1a8c78;font-weight:700;">移植に匹敵する長生き実績</span>
+      </div>
+      <div class="tb-head" style="margin-bottom:12px;">
+        <div class="icon-wrap" style="background:#d1fae5;">🏡</div>
+        <div>
+          <div class="tb-name" style="color:#1a8c78;">在宅血液透析（HHD）</div>
+          <div class="tb-tagline">血液を使う透析を、自宅の機械で行う</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">メリット</span>
+        <span class="tb-txt">時間が自由でしっかり透析できる。心臓への負担が劇的に減り、体調・寿命が大きく改善する可能性がある</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">ご家族（介助者）の協力と、自分で針を刺す自己穿刺の習得が必要</span>
+      </div>
+      <div class="tb-arr">詳しく見る（長生きの理由も解説） ›</div>
     </button>
-    <button class="btn c-tx" onclick="startTherapy('tx')">
-      <div class="icon-wrap">🫀</div>
-      <div class="text">腎移植<div class="sub">透析が不要になる可能性がある治療</div></div>
-      <div class="arr">›</div>
+    <button class="tb c-pd" onclick="go('s-pd-select')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#f5f3ff;">🫃</div>
+        <div>
+          <div class="tb-name">腹膜透析（PD）</div>
+          <div class="tb-tagline">お腹の腹膜をフィルターに使う透析</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">メリット</span>
+        <span class="tb-txt">自分の腎臓の働きが保たれやすく、通院回数も少なく自由度が高い</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">毎日の自己操作が必要で、数年後には血液透析などへの「バトンタッチ」が必要になる</span>
+      </div>
+      <div class="tb-arr">昼タイプ（CAPD）/ 夜タイプ（APD）を選ぶ ›</div>
     </button>
+    <button class="tb c-tx" onclick="startTherapy('tx')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#fef2f2;">🫀</div>
+        <div>
+          <div class="tb-name">腎移植</div>
+          <div class="tb-tagline">透析が不要になる可能性がある治療</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">メリット</span>
+        <span class="tb-txt">透析から解放され、食事制限もほぼなく健康な時と一番近い生活に戻れる</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">全身麻酔の手術が必要。免疫抑制剤を一生服用し、感染症に注意が必要</span>
+      </div>
+      <div class="tb-arr">詳しく見る ›</div>
+    </button>
+  </div>
+</div>
+<!-- ==================== COMPARE SCREEN ==================== -->
+<div class="screen" id="s-compare">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">治療法を比べる</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <!-- ① 体への影響 -->
+    <div class="cmp-criterion">
+      <div class="cmp-hdr" style="background:#2874a6;">① 体への影響</div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏥</span><span class="cmp-row-name">施設血液透析（HD）</span></div>
+        <div class="cmp-merit">毎回確実に老廃物を除去。異常時は医療スタッフがすぐ対応できる</div>
+        <div class="cmp-demerit">2〜3日分の水分を4時間で除去するため心臓への負担が大きく、血圧低下や透析後の疲労が起こりやすい</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏡</span><span class="cmp-row-name">在宅血液透析（HHD）</span></div>
+        <div class="cmp-merit">毎日少しずつ・長時間透析できるため心臓への負担が少ない。血圧改善も期待でき、生命予後も良好</div>
+        <div class="cmp-demerit">自分でシャントに針を刺す技術の習得が必要</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫃</span><span class="cmp-row-name">腹膜透析（PD）</span></div>
+        <div class="cmp-merit">残っている腎機能（尿を出す力）が長持ちしやすく、24時間ゆっくり透析するため心臓に優しい</div>
+        <div class="cmp-demerit">腹膜炎など感染症のリスクがあり、腹膜劣化により将来的にHDへ移行することが多い</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫀</span><span class="cmp-row-name">腎移植</span></div>
+        <div class="cmp-merit">腎臓本来の機能が回復し、最も自然な状態に近い</div>
+        <div class="cmp-demerit">手術が必要で、免疫抑制剤により感染症や悪性腫瘍のリスクが上昇する</div>
+      </div>
+    </div>
+    <!-- ② 時間・生活 -->
+    <div class="cmp-criterion">
+      <div class="cmp-hdr" style="background:#6c5ce7;">② 時間・生活</div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏥</span><span class="cmp-row-name">施設血液透析（HD）</span></div>
+        <div class="cmp-merit">透析中は休息や読書など自由に過ごせる</div>
+        <div class="cmp-demerit">週3回、通院を含め約5時間拘束され、仕事や旅行の調整が必要</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏡</span><span class="cmp-row-name">在宅血液透析（HHD）</span></div>
+        <div class="cmp-merit">好きな時間に透析でき、通院は月1〜2回程度。仕事や趣味との両立がしやすい</div>
+        <div class="cmp-demerit">機械設置スペースや準備・片付けを毎回行う必要がある</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫃</span><span class="cmp-row-name">腹膜透析（PD）</span></div>
+        <div class="cmp-merit">通院は月1〜2回程度で、旅行もしやすい</div>
+        <div class="cmp-demerit">毎日バッグ交換または夜間機械接続を継続する必要がある</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫀</span><span class="cmp-row-name">腎移植</span></div>
+        <div class="cmp-merit">透析時間が不要となり、仕事・旅行・スポーツなど自由度が高い</div>
+        <div class="cmp-demerit">毎日決まった時間に免疫抑制薬を飲み続ける必要がある</div>
+      </div>
+    </div>
+    <!-- ③ 食事・水分 -->
+    <div class="cmp-criterion">
+      <div class="cmp-hdr" style="background:#1a8c78;">③ 食事・水分</div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏥</span><span class="cmp-row-name">施設血液透析（HD）</span></div>
+        <div class="cmp-demerit">4つの治療法の中で最も制限が厳しい。水分・カリウム・塩分管理が重要</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏡</span><span class="cmp-row-name">在宅血液透析（HHD）</span></div>
+        <div class="cmp-merit">十分な透析ができるため、施設HDより食事・水分制限が大幅に緩和される</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫃</span><span class="cmp-row-name">腹膜透析（PD）</span></div>
+        <div class="cmp-merit">カリウムが抜けやすく、生野菜や果物も比較的食べやすい。尿が出ている間は水分制限も緩め</div>
+        <div class="cmp-demerit">糖分吸収で太りやすく、タンパク質が失われるため補給が必要</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫀</span><span class="cmp-row-name">腎移植</span></div>
+        <div class="cmp-merit">透析特有の厳しい食事制限は基本的に解除される</div>
+        <div class="cmp-demerit">移植腎を守るため十分な水分摂取と体重管理が必要</div>
+      </div>
+    </div>
+    <!-- ④ 心・家族への影響 -->
+    <div class="cmp-criterion">
+      <div class="cmp-hdr" style="background:#c0392b;">④ 心・家族への影響</div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏥</span><span class="cmp-row-name">施設血液透析（HD）</span></div>
+        <div class="cmp-merit">医療スタッフに任せられるため自己管理や家族負担は比較的少ない</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏡</span><span class="cmp-row-name">在宅血液透析（HHD）</span></div>
+        <div class="cmp-demerit">家族（介助者）の協力やトレーニングが必要で、精神的負担も大きい</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫃</span><span class="cmp-row-name">腹膜透析（PD）</span></div>
+        <div class="cmp-demerit">腹部カテーテル管理やボディイメージの変化が精神的負担になることがある</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫀</span><span class="cmp-row-name">腎移植</span></div>
+        <div class="cmp-demerit">生体移植では家族への心理的負担、献腎移植では長い待機期間が課題</div>
+      </div>
+    </div>
+    <!-- ⑤ 入浴・清潔 -->
+    <div class="cmp-criterion">
+      <div class="cmp-hdr" style="background:#0891b2;">⑤ 入浴・清潔</div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏥</span><span class="cmp-row-name">施設血液透析（HD）</span></div>
+        <div class="cmp-merit">翌日以降は通常どおり入浴できる。シャント部を清潔に保てば生活制限は少ない</div>
+        <div class="cmp-demerit">透析日は穿刺部の止血を確認したうえでシャワー程度が望ましい。シャント部は強くこすらないよう注意</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🏡</span><span class="cmp-row-name">在宅血液透析（HHD）</span></div>
+        <div class="cmp-merit">翌日以降は通常どおり入浴できる</div>
+        <div class="cmp-demerit">透析日は自己穿刺部の止血・清潔を確認し、シャワー程度が望ましい。穿刺部の感染予防のため日頃から清潔管理が重要</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫃</span><span class="cmp-row-name">腹膜透析（PD）</span></div>
+        <div class="cmp-merit">シャントへの針刺しがないため、穿刺部の止血を気にする必要がない</div>
+        <div class="cmp-demerit">入浴時はカテーテル保護が必要で、入浴後は出口部ケアが必要。温泉は感染リスクがあるため避けるのが賢明</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-row-head"><span class="cmp-row-ico">🫀</span><span class="cmp-row-name">腎移植</span></div>
+        <div class="cmp-merit">手術創が十分に治癒すれば通常の入浴・温泉も楽しめる</div>
+        <div class="cmp-demerit">温泉利用時は感染予防・脱水に注意し、主治医の指導に従う</div>
+      </div>
+    </div>
+    <!-- まとめ -->
+    <div class="sec-lbl">一言でまとめると</div>
+    <div class="sum-card">
+      <div class="sum-row">
+        <span class="sum-ico">🏥</span>
+        <div class="sum-body">
+          <div class="sum-name">施設血液透析（HD）</div>
+          <div class="sum-merit">病院に任せられて安心</div>
+          <div class="sum-demerit">時間拘束・食事制限が大きい</div>
+        </div>
+      </div>
+      <div class="sum-row">
+        <span class="sum-ico">🏡</span>
+        <div class="sum-body">
+          <div class="sum-name">在宅血液透析（HHD）</div>
+          <div class="sum-merit">生活の自由度・体への優しさが高い</div>
+          <div class="sum-demerit">自己管理と家族の協力が必要</div>
+        </div>
+      </div>
+      <div class="sum-row">
+        <span class="sum-ico">🫃</span>
+        <div class="sum-body">
+          <div class="sum-name">腹膜透析（PD）</div>
+          <div class="sum-merit">通院が少なく生活に合わせやすい</div>
+          <div class="sum-demerit">毎日の管理と腹膜炎リスク</div>
+        </div>
+      </div>
+      <div class="sum-row">
+        <span class="sum-ico">🫀</span>
+        <div class="sum-body">
+          <div class="sum-name">腎移植</div>
+          <div class="sum-merit">最も自然な生活に近づける</div>
+          <div class="sum-demerit">手術と免疫抑制剤の継続が必要</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn primary" onclick="gameStart()" style="margin-bottom:10px;">🔍 自分に合う治療を探す</button>
+    <button class="btn ghost" onclick="go('s-therapy-top')">← 治療法一覧へ戻る</button>
   </div>
 </div>
 <!-- ==================== HOME THERAPY SUBMENU ==================== -->
@@ -374,23 +666,86 @@
     <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
   </div>
   <div class="content">
-    <div class="card">
-      <div class="card-body">自宅で行う透析には3つの方法があります。<strong>血液を使う方法（HHD）</strong>と、<strong>お腹をフィルター代わりにする腹膜透析（CAPD・APD）</strong>です。</div>
+    <button class="tb c-hhd" onclick="startTherapy('hhd')" style="border:2px solid #1a8c78;background:#f0fdf9;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <span style="font-size:0.75rem;font-weight:800;background:#1a8c78;color:#fff;padding:3px 10px;border-radius:20px;letter-spacing:0.05em;">⭐ 当院一押し</span>
+        <span style="font-size:0.75rem;color:#1a8c78;font-weight:700;">移植に匹敵する長生き実績</span>
+      </div>
+      <div class="tb-head" style="margin-bottom:12px;">
+        <div class="icon-wrap" style="background:#d1fae5;">🏡</div>
+        <div>
+          <div class="tb-name" style="color:#1a8c78;">在宅血液透析（HHD）</div>
+          <div class="tb-tagline">血液を使う透析を、自宅の機械で行う</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">メリット</span>
+        <span class="tb-txt">時間が自由でしっかり透析できる。心臓への負担が劇的に減り、体調・寿命が大きく改善する可能性がある</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">ご家族（介助者）の協力と、自分で針を刺す自己穿刺の習得が必要</span>
+      </div>
+      <div class="tb-arr">詳しく見る（長生きの理由も解説） ›</div>
+    </button>
+    <button class="tb c-pd" onclick="go('s-pd-select')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#f5f3ff;">🫃</div>
+        <div>
+          <div class="tb-name">腹膜透析（PD）</div>
+          <div class="tb-tagline">お腹の腹膜をフィルターに使う透析</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">メリット</span>
+        <span class="tb-txt">自分の腎臓の働きが保たれやすく、通院回数も少なく自由度が高い</span>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge caution">注意点</span>
+        <span class="tb-txt">毎日の自己操作が必要で、数年後には血液透析などへの「バトンタッチ」が必要になる</span>
+      </div>
+      <div class="tb-arr">昼タイプ（CAPD）/ 夜タイプ（APD）を選ぶ ›</div>
+    </button>
+  </div>
+</div>
+<!-- ==================== PD SELECT ==================== -->
+<div class="screen" id="s-pd-select">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">‹</button>
+    <div class="hdr-title">腹膜透析（PD）のタイプ</div>
+    <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
+  </div>
+  <div class="content">
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-body">腹膜透析には、バッグ交換を自分で行う<strong>昼タイプ（CAPD）</strong>と、夜間に機械が自動で行う<strong>夜タイプ（APD）</strong>があります。</div>
     </div>
-    <button class="btn c-hhd" onclick="startTherapy('hhd')">
-      <div class="icon-wrap">🏡</div>
-      <div class="text">在宅血液透析（HHD）<div class="sub">血液を使う方法を、自宅の機械で行う</div></div>
-      <div class="arr">›</div>
+    <button class="tb c-pd" onclick="startTherapy('capd')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#f5f3ff;">🌅</div>
+        <div>
+          <div class="tb-name">腹膜透析・昼タイプ（CAPD）</div>
+          <div class="tb-tagline">機械なし・昼間に自分でバッグを交換</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">特長</span>
+        <span class="tb-txt">電源・機械が不要。旅行先でも治療を続けやすい</span>
+      </div>
+      <div class="tb-arr">詳しく見る ›</div>
     </button>
-    <button class="btn c-capd" onclick="startTherapy('capd')">
-      <div class="icon-wrap">🌅</div>
-      <div class="text">腹膜透析・昼タイプ（CAPD）<div class="sub">お腹をフィルターに・昼間に自分で交換</div></div>
-      <div class="arr">›</div>
-    </button>
-    <button class="btn c-apd" onclick="startTherapy('apd')">
-      <div class="icon-wrap">🌙</div>
-      <div class="text">腹膜透析・夜タイプ（APD）<div class="sub">お腹をフィルターに・夜間に機械が自動で</div></div>
-      <div class="arr">›</div>
+    <button class="tb c-pd" style="border-color:#c7d2fe;" onclick="startTherapy('apd')">
+      <div class="tb-head">
+        <div class="icon-wrap" style="background:#eef2ff;">🌙</div>
+        <div>
+          <div class="tb-name">腹膜透析・夜タイプ（APD）</div>
+          <div class="tb-tagline">夜間に機械が自動で透析・昼間が自由</div>
+        </div>
+      </div>
+      <div class="tb-row">
+        <span class="tb-badge good">特長</span>
+        <span class="tb-txt">昼間はほぼ自由に活動できる。仕事・学業との両立に向いている</span>
+      </div>
+      <div class="tb-arr">詳しく見る ›</div>
     </button>
   </div>
 </div>
@@ -497,7 +852,7 @@
   <div class="content">
     <div id="result-content"></div>
     <div class="doc-msg">
-      <div class="dm-from">😊 主治医より</div>
+      <div class="dm-from">👨‍⚕️ 主治医より</div>
       <div class="dm-text">あなたに合う治療は、まだ決まっていません。<br><br>正解は1つではありません。<br><br>あなたの人生に合わせて、<strong>一緒に考えていきましょう。</strong></div>
     </div>
     <button class="btn accent" onclick="showDoctorView()" style="margin-bottom:10px;font-size:1.1rem;">🩺 この結果を主治医に見せる</button>
@@ -545,12 +900,13 @@ const T = {
   hd: {
     name:'病院での透析（HD）', icon:'🏥', color:'#2874a6', bg:'#eff6ff', type:'therapy',
     cards:[
-      {e:'🩸', t:'どんな治療？',              b:'病院やクリニックに通院し、血液を機械でろ過する治療です。週に数回、看護師・スタッフのサポートを受けながら行います。'},
+      {e:'🩸', t:'どんな治療？',              b:'血液透析は、「血液を一度体の外へ出し、人工腎臓できれいにしてから体へ戻す治療」です。腎臓が十分に働けなくなった代わりに、機械が老廃物や余分な水分を取り除いてくれます。'},
       {e:'👩‍⚕️', t:'スタッフに任せられる',   b:'機械の操作や管理を自分でする必要がありません。医療スタッフが常にそばにいるので、安心して治療を受けられます。'},
       {e:'🗾', t:'全国に施設が多い',          b:'全国に約4,500の透析施設があります。旅行先でも事前に予約すれば透析を受けやすいです。'},
       {e:'📅', t:'治療スケジュール',          b:'一般的に週3回、1回4〜5時間です。夜間透析のクリニックを選べば、日中は今まで通り仕事ができます。'},
       {e:'🍽️', t:'食事について',             b:'塩分・カリウム・リン・水分の管理が必要ですが、管理栄養士が工夫を教えてくれます。ご家族と同じ食卓を楽しめる工夫もあります。'},
-      {e:'💪', t:'シャントとは？',           b:'腕の血管を太くする小さな手術（シャント造設）が必要です。毎回ここに針を刺しますが、麻酔クリームやテープで痛みを和らげられます。'},
+      {e:'💉', t:'1日の流れ（イメージ）',    b:'① 来院：体重・血圧を測定\n② シャントへ2本の針を刺して透析開始\n③ 約4時間：読書・テレビ・映画鑑賞・休息など自由に過ごす\n④ 終了：針を抜いて止血し、体重や体調を確認して帰宅'},
+      {e:'💪', t:'シャントとは？',           b:'腕の動脈と静脈をつなぎ合わせる小さな手術で、十分な量の血液を流せる「専用の血管（シャント）」を作ります。毎回ここに2本の針を刺します。\n\nQ. シャントは一生使えますか？\nA. 一生そのまま使えるとは限りません。狭くなったり詰まったりすることがありますが、定期的な検査と治療（血管拡張術など）で長く使える場合が多くあります。'},
       {e:'👤', t:'こんな方に向いているかも', b:'スタッフに安心して任せたい方。通院手段がある方。全国どこでも同じように治療を受けたい方。'},
     ]
   },
@@ -561,23 +917,28 @@ const T = {
       {e:'🕐', t:'スケジュールが自由',        b:'治療日・時間を自分でコントロールできます。夜間に行うことも可能で、仕事・趣味に合わせられます。'},
       {e:'💪', t:'透析をしっかりとれる',      b:'施設透析より長い時間で透析できることが多く、体の状態が安定しやすい場合があります。'},
       {e:'📅', t:'通院回数が少ない',          b:'月数回の通院（診察・検査）で済むことが多く、日常的に施設に通う必要がありません。'},
-      {e:'📚', t:'導入前にトレーニング',      b:'機械の操作・針の刺し方などを事前に十分トレーニングします。習得まで数週間〜数ヶ月かかります。'},
+      {e:'📚', t:'導入前に当院でトレーニング',  b:'機械の操作・針の刺し方・緊急時の対応などを、当院で丁寧にトレーニングします。習得までの期間は個人差がありますが、目安は3〜6か月程度です。トレーニング修了後、いよいよ自宅で血液透析を行えるようになります。'},
       {e:'💉', t:'針は基本的に自分で刺します', b:'在宅血液透析では、シャントへの針刺し（自己穿刺）を原則として自分で行います。施設透析では看護師が行いますが、HHDでは自分で正確に刺せるようになることがトレーニングの大きな柱です。'},
       {e:'👁️', t:'透析中は必ず誰かの見守りが必要', b:'透析中に急に血圧が下がったり、気分が悪くなることがあります。そのような緊急時には介助者が「透析終了ボタンを押す」などの対応が必要です。一人での透析は原則として行えません。ご家族など介助者の同席が必須です。'},
       {e:'🏠', t:'自宅に設置スペースが必要', b:'透析機器・水処理装置を置くスペースが必要です。緊急時のサポート体制も大切です。'},
+      {e:'🏆', t:'HHDは「最強の透析」〜移植に匹敵する長生き〜', b:'世界の大規模研究で、毎日長時間行うHHD（特に夜間透析）は、亡くなった方からの腎移植を受けた方と「ほぼ同じくらい長生きできる」と報告されています。透析でありながら、移植に近い寿命を目指せる治療法です。'},
+      {e:'🌧️', t:'なぜ長生きできるの？①：心臓への負担がゼロに近い', b:'通常の施設透析（週3回・4時間）では、2〜3日分の水分を4時間で一気に抜きます。これは心臓に「ゲリラ豪雨」のような急激な負担をかけます。HHDで毎日少しずつ水分を抜くのは「霧雨」のようなもの。心臓への負担が劇的に減り、透析患者の死因1位「心不全」のリスクを大きく下げられます。'},
+      {e:'🫀', t:'なぜ長生きできるの？②：血管を守る「リン」がしっかり抜ける', b:'週3回・4時間の透析ではどうしても「リン」が体に残りがちです。リンが溜まると血管が石のようにカチカチになり（石灰化）、心筋梗塞の原因になります。HHDで透析時間を長くとると、リンがしっかり抜けて血管が若々しく保たれ、それが長生きに直結するのです。'},
       {e:'👤', t:'こんな方に向いているかも', b:'自己管理意欲が高く、仕事・趣味を続けたい方。一緒にトレーニングを受けてくれる介助者（ご家族など）がいる方。'},
     ]
   },
   capd: {
     name:'腹膜透析・昼タイプ（CAPD）', icon:'🌅', color:'#8e44ad', bg:'#f5f3ff', type:'therapy',
     cards:[
-      {e:'🌅', t:'どんな治療？',              b:'お腹の腹膜をフィルター代わりに使います。1日3〜5回バッグを交換するだけで、24時間ゆっくり透析が続きます。'},
+      {e:'🌅', t:'どんな治療？',              b:'自分のお腹の中にある「腹膜」という薄い膜をフィルターとして利用し、24時間ゆっくり血液をきれいにする治療です。お腹に留置したカテーテルから透析液を入れ、数時間体内にためた後、老廃物を含んだ液を外へ出します。この「バッグ交換」を繰り返します。'},
+      {e:'📦', t:'バッグ交換は難しい？',      b:'最初は看護師が丁寧に指導します。清潔な操作の方法を身につければ、多くの方が自宅で安全に行えるようになります。1回の交換は約30分。慣れれば生活の一部として行えます。'},
+      {e:'🤝', t:'PD＋HD 併用療法という選択肢', b:'PDを中心に続けながら、週1回程度だけ血液透析を追加して不足分を補う方法です。日本では広く行われており、PDのメリットを生かしながら治療を長く続けやすくなります。'},
       {e:'🔌', t:'機械なしで治療できる',      b:'電源や機械が不要です。バッグと消耗品さえあれば、旅行先やどこでも治療を続けられます。停電時も安心です。'},
       {e:'✈️', t:'旅行・外出がしやすい',      b:'透析液を旅行先に配送してもらう手配ができます。多くの患者さんが国内外への旅行を楽しんでいます。'},
       {e:'🥗', t:'食事の自由度が高め',        b:'腹膜透析はカリウムが除去されやすく、生野菜・果物の制限が血液透析より緩めなことが多いです。'},
       {e:'🫁', t:'自分の腎臓の働きが保たれやすい', b:'腹膜透析を最初に選ぶ大きなメリットのひとつです。血液透析と比較して、残っている自分の腎臓の機能が長く保たれやすいと報告されています（残存腎機能の保持）。'},
       {e:'🧼', t:'腹膜炎に注意',             b:'最も重要な合併症が腹膜炎です。バッグ交換の際に清潔操作を守れば発症リスクを下げられます。お腹の痛み・にごった排液が出たら、すぐに病院に連絡してください。'},
-      {e:'⏳', t:'腹膜透析には使用できる期間がある', b:'長期間使用すると腹膜が傷み、「被嚢性腹膜硬化症（EPS）」という重篤な合併症が起こる場合があります。一般的な目安は約8年とされ、期間に応じて血液透析や腎移植への移行を検討します。'},
+      {e:'⏳', t:'腹膜透析の継続期間について', b:'日本の報告では、PDを5年間継続できる割合は約70%です。腹膜の働きの低下や感染症などのやむを得ない理由により継続できなくなる割合は年間約7%とされています。国際的な観察研究（PDOPPS）では、日本でのPD治療期間の中央値は約3.2年と報告されています。\n\nただし、PDは「一生この治療だけ」と決めるものではありません。腎機能の状態やライフスタイルに合わせて血液透析を組み合わせたり、腎移植へ移行したりしながら、その時点で最も適した治療を選択していくことが可能です。'},
       {e:'⏰', t:'毎日のバッグ交換',          b:'1日3〜5回（1回約30分）の交換が必要です。清潔な場所で毎日行います。'},
       {e:'👤', t:'こんな方に向いているかも', b:'旅行・外出を楽しみたい方。通院回数を減らしたい方。機械なしで治療したい方。'},
     ]
@@ -585,13 +946,14 @@ const T = {
   apd: {
     name:'腹膜透析・夜タイプ（APD）', icon:'🌙', color:'#6c5ce7', bg:'#eef2ff', type:'therapy',
     cards:[
-      {e:'🌙', t:'どんな治療？',              b:'夜間にサイクラーという機械をお腹のカテーテルに接続し、寝ている間に自動で透析を行います。'},
+      {e:'🌙', t:'どんな治療？',              b:'自分のお腹の中にある「腹膜」という薄い膜をフィルターとして利用する治療です。夜、就寝時にお腹のカテーテルに機械を接続するだけで、寝ている間に自動で透析液を出し入れして、老廃物や余分な水分を除去・調整してくれます。'},
+      {e:'🤝', t:'PD＋HD 併用療法という選択肢', b:'APDを中心に続けながら、週1回程度だけ血液透析を追加して不足分を補う方法です。日本では広く行われており、PDのメリットを生かしながら治療を長く続けやすくなります。'},
       {e:'☀️', t:'昼間が自由',               b:'朝に機械を外すと、昼間はほぼ自由に活動できます。バッグ交換が不要か、少なくできる場合があります。'},
       {e:'💼', t:'仕事・学業と両立しやすい', b:'夜間に透析をするため、日中はフルタイムで仕事や学業ができる方も多いです。'},
       {e:'📅', t:'通院回数が少ない',          b:'月1〜2回の通院が目安です。日常的に通院する必要がありません。'},
       {e:'🫁', t:'自分の腎臓の働きが保たれやすい', b:'CAPDと同様に、腹膜透析は血液透析と比較して残存腎機能が長く保たれやすいと報告されています。早期から腹膜透析を選ぶ理由のひとつです。'},
       {e:'🧼', t:'腹膜炎に注意',             b:'最も重要な合併症が腹膜炎です。接続部の清潔操作を守ることが大切です。お腹の痛み・にごった排液が出たら、すぐに病院に連絡してください。'},
-      {e:'⏳', t:'腹膜透析には使用できる期間がある', b:'長期間使用すると腹膜が傷み、「被嚢性腹膜硬化症（EPS）」という重篤な合併症が起こる場合があります。一般的な目安は約8年とされ、期間に応じて血液透析や腎移植への移行を検討します。'},
+      {e:'⏳', t:'腹膜透析の継続期間について', b:'日本の報告では、PDを5年間継続できる割合は約70%です。腹膜の働きの低下や感染症などのやむを得ない理由により継続できなくなる割合は年間約7%とされています。国際的な観察研究（PDOPPS）では、日本でのPD治療期間の中央値は約3.2年と報告されています。\n\nただし、PDは「一生この治療だけ」と決めるものではありません。腎機能の状態やライフスタイルに合わせて血液透析を組み合わせたり、腎移植へ移行したりしながら、その時点で最も適した治療を選択していくことが可能です。'},
       {e:'🔧', t:'機械の設置と管理',          b:'自宅にサイクラーを置くスペースと、操作を習得するトレーニングが必要です。'},
       {e:'👤', t:'こんな方に向いているかも', b:'日中に仕事・学業を続けたい方。昼間の操作を減らしたい方。機械操作に抵抗のない方。'},
     ]
@@ -599,7 +961,9 @@ const T = {
   tx: {
     name:'腎移植', icon:'🫀', color:'#c0392b', bg:'#fef2f2', type:'therapy',
     cards:[
-      {e:'🫀', t:'どんな治療？',               b:'ドナー（提供者）から健康な腎臓を移植し、自分の腎臓として機能させる治療です。成功すれば透析が不要になります。'},
+      {e:'🫀', t:'どんな治療？',               b:'提供された健康な腎臓を体内に移植し、腎臓本来の働きを取り戻すことを目指す治療です。移植した腎臓が順調に働けば、透析を行わずに生活できる可能性があります。'},
+      {e:'📍', t:'移植腎はどこに入る？',       b:'移植した腎臓は、元の腎臓を取り除かずに**おへその下・骨盤の中（腸骨窩）**に入れます。元の腎臓は働いていなくてもそのまま残すことが多く、移植腎と合わせて体内に腎臓が3つある状態になります。'},
+      {e:'🏥', t:'手術の2つのパターン',       b:'①生体腎移植：ご家族などのドナーから腎臓を提供していただき、計画的に手術を行います。\n\n②献腎移植：亡くなられた方から提供された腎臓を移植します。事前の待機登録が必要で、日本では平均15年以上の待機期間があります。'},
       {e:'🌟', t:'最も生理的な腎代替療法',     b:'透析は人工的に血液をきれいにしますが、移植は本物の腎臓が体内で機能する、最も生理的な腎代替療法です。長期的な生活の質が高くなる可能性があると報告されています。'},
       {e:'🍽️', t:'食事・水分制限が大幅緩和',   b:'移植後は透析が不要になるため、食事・水分の制限がほとんどなくなる方が多いです。'},
       {e:'✈️', t:'仕事・旅行・スポーツ',       b:'薬を継続すれば、旅行も仕事もスポーツも活動の幅が大きく広がります。移植後にフルマラソンを走る方もいます。'},
@@ -616,47 +980,50 @@ const T = {
 // FAQ DATA
 // ======================================================
 const FAQS = [
-  { id:'life', icon:'⏳', label:'長生きできる？', q:'透析になると長生きできませんか？', short:'20年・30年と元気に過ごす方もたくさんいます',
+  { id:'life', icon:'⏳', label:'長生きできる？', q:'透析になったら、あと何年生きられますか？', short:'導入年齢によって大きく異なります',
     cards:[
-      {e:'😊', t:'透析は人生の終わりではありません', b:'透析は「これからもあなたらしく生きていくためのサポート」です。20年・30年以上元気に過ごされている方はたくさんいます。'},
-      {e:'🔬', t:'技術は大きく進歩しています',       b:'透析の機械・技術・薬は昔と比べて大きく進歩しています。適切な管理を続けることで、長く元気に生活されている方も多いです。'},
-      {e:'🎯', t:'自己管理が大切',                  b:'食事・水分の管理、定期的な通院、薬の服用をしっかり続けることが、長生きの大きな鍵です。'},
-      {e:'🫀', t:'移植はさらに長寿命の可能性',       b:'腎移植が成功した場合、透析に比べてさらに長い生存が期待できると言われています。'},
-      {e:'💬', t:'何でも相談してください',           b:'不安なことは一人で抱え込まず、主治医や看護師に何でも聞いてください。あなたを支えるチームがいます。'},
+      {e:'🗾', t:'透析は「高齢者医療」になっています', b:'日本で新たに透析を始める方の平均年齢は71.42歳。85歳以上で始める方も約10人に1人います。透析は特別な病気ではなく、長寿化に伴う自然な流れになっています。'},
+      {e:'📊', t:'導入した年齢で「あと何年」は全く違う', b:'50歳で始めた場合：約17〜20年\n60歳で始めた場合：約12〜14年\n70歳で始めた場合：約8〜9年\n80歳で始めた場合：約4〜5年\n\n自己管理が良い方はこれよりずっと長く生きられます。'},
+      {e:'📈', t:'5年後も元気でいられる確率', b:'40〜44歳で始めた場合：約85%\n60〜64歳で始めた場合：約68%\n80〜84歳で始めた場合：約35%\n\n若い方・中年の方は5年・10年と元気に過ごせる確率が非常に高いです。'},
+      {e:'💔', t:'長生きを阻む原因①：心不全（死因1位・約22%）', b:'透析と透析の間に水分を飲みすぎると、心臓が水風船のようにパンパンになり心不全を起こします。「体重（水分）の増加を少なく」「塩分制限」——これが命を延ばす最強の薬です。'},
+      {e:'🦠', t:'長生きを阻む原因②：感染症（死因2位・約21%）', b:'免疫力が落ちるため、肺炎・足の傷・カテーテルからのばい菌で亡くなる方が多いです。手洗い・うがい・足の観察（フットケア）・ワクチン接種が命を守ります。'},
+      {e:'🏥', t:'長生きを阻む原因③：がん（死因3位・約9%）', b:'透析患者さんも一般の方と同じようにがんになります。胃カメラ・便潜血・エコーなどの定期的ながん検診を受けることが大切です。'},
+      {e:'🏆', t:'治療法でも「長生き」は変わる', b:'腎移植を受けた方は透析を続けるより明らかに長生きできます。また在宅血液透析（HHD）で長時間・頻回に透析を行うと、心臓への負担が劇的に減り、移植に匹敵する寿命が得られると世界の研究が示しています。'},
+      {e:'💬', t:'あなたの寿命はこれよりずっと長くなります', b:'統計の数字には80〜90歳で始める高齢者も含まれるため、全体平均は短く見えます。体力があり、食事・水分の管理をしっかりできる方の寿命は平均よりもずっと長くなります。一緒に取り組みましょう。'},
     ]},
-  { id:'money', icon:'💰', label:'お金が心配', q:'治療費はどのくらいかかりますか？', short:'日本には手厚い公的支援制度があります',
+  { id:'money', icon:'💰', label:'お金が心配', q:'治療費はどのくらいかかりますか？毎月支払っていけるか心配です。', short:'経済的な理由で治療を諦める必要はありません',
     cards:[
-      {e:'🇯🇵', t:'日本の制度は充実しています',     b:'慢性腎不全の透析治療は、公的医療保険と医療費助成制度により、自己負担が大幅に軽減されます。'},
-      {e:'📄', t:'特定疾病療養受療証',              b:'「特定疾病療養受療証」を取得すると、保険診療の自己負担が月1万円（または2万円）に抑えられます。'},
-      {e:'♿', t:'身体障害者手帳',                 b:'透析が必要な腎機能障害では、原則1級の身体障害者手帳を取得できます。税金の軽減・交通費補助・医療費助成などが受けられます。'},
-      {e:'🏛️', t:'自治体の医療費助成',              b:'お住まいの市区町村によって、さらに医療費助成が受けられる場合があります。'},
-      {e:'🗣️', t:'ソーシャルワーカーへ相談',        b:'病院のソーシャルワーカー（社会福祉士）は医療費や生活支援について詳しく相談に乗ってくれます。一人で悩まず相談を。'},
+      {e:'💰', t:'結論：自己負担は極限まで抑えられます', b:'透析にかかる医療費の総額は月約40〜50万円と大きな金額ですが、あなたがこの金額を窓口で支払う必要は一切ありません。日本の優れた医療保険制度が守ってくれます。実際の窓口負担が「月1〜2万円程度、またはそれ以下」で収まる方がほとんどです。'},
+      {e:'📄', t:'①「特定疾病療養受療証」（上限1〜2万円）', b:'ご加入の健康保険（国保・社保など）に申請して「特定疾病療養受療証」を取得します。病院窓口に提示するだけで、1か月の透析医療費の上限が自動的に「1万円（高所得の方は2万円）」でストップします。'},
+      {e:'♿', t:'②身体障害者手帳（1級）の取得',       b:'透析を始めるタイミングで、原則として身体障害者手帳「1級」を取得できます。税金の控除・交通機関や高速道路の割引など、生活を支える様々な福祉サポートを受けられるようになります。'},
+      {e:'🏛️', t:'③自治体の医療費助成でさらに軽くなることも', b:'手帳1級を取得すると、お住まいの自治体が実施している「重度心身障害者への医療費助成」を受けられる場合があります。所得などの条件を満たせば、①の1万円からさらに自己負担が軽くなることがあります。'},
+      {e:'🗣️', t:'④申請の手順はしっかりご案内します',   b:'申請はご本人・ご家族が市役所等の窓口で行っていただく必要がありますが、「いつ・どこへ・何の書類を出せばよいか」は当院スタッフが分かりやすくご説明します。「役所の手続きは難しそう…」と一人で悩まず、まずご相談ください。'},
     ]},
   { id:'work', icon:'💼', label:'仕事は続けられる？', q:'仕事は辞めないといけませんか？', short:'辞める必要はありません！',
     cards:[
-      {e:'😊', t:'多くの方が働いています',           b:'透析をしながら仕事を続けている方はたくさんいます。治療法を工夫することで仕事と透析の両立ができます。'},
-      {e:'🌙', t:'夜間透析という選択肢',             b:'施設透析（HD）でも「夜間透析」のクリニックを選べば、日中はフルタイムで働けます。'},
+      {e:'👥', t:'多くの方が働いています',           b:'透析をしながら仕事を続けている方はたくさんいます。治療法を工夫することで仕事と透析の両立ができます。'},
+      {e:'🌙', t:'当院の夜間透析コース',              b:'当院では月・水・金の夜間透析コースをご用意しています。18時までにご入室いただければ、22時30分までには終了します。日中はフルタイムで働き、夜間に透析を受けることができます。'},
       {e:'🌙', t:'APDなら昼間が自由',               b:'夜間に機械が自動で透析するAPDなら、昼間はほぼ自由に過ごせます。仕事・学業と特に両立しやすい選択肢です。'},
       {e:'🏡', t:'HHDは時間を自分で決められる',     b:'在宅血液透析（HHD）は透析時間を自分で設定できるため、仕事のスケジュールに合わせやすいです。'},
       {e:'🫀', t:'移植後は活動の幅が広がる',         b:'腎移植後は透析の時間に縛られず働ける方が多いです。フルタイム・出張などが可能になる場合があります。'},
     ]},
   { id:'pain', icon:'😖', label:'透析は痛い？', q:'透析は痛いですか？', short:'痛みを和らげる工夫がたくさんあります',
     cards:[
-      {e:'😊', t:'過度な心配は不要です',             b:'透析の痛みは、工夫次第でかなり和らげることができます。多くの患者さんが治療に慣れ、快適に受けられるようになっています。'},
-      {e:'💉', t:'HDの針について',                   b:'血液透析では毎回腕に針を刺しますが、事前に「麻酔クリーム」や「痛み止めのテープ」を使うことでかなり和らげられます。'},
+      {e:'✅', t:'過度な心配は不要です',             b:'透析の痛みは、工夫次第でかなり和らげることができます。多くの患者さんが治療に慣れ、快適に受けられるようになっています。'},
+      {e:'💉', t:'HDの針について',                   b:'血液透析では毎回腕に2か所、針を刺します。\n\n【なぜ2か所？】透析は1分間に約200mlという大量の血液を体の外に取り出し、きれいにして返す治療です。「血液を抜く道」と「きれいになった血液を返す道」の2本が必要なため、針も2か所になります。\n\n痛みは、針を刺す30〜60分前に痛み止めテープや麻酔クリームを使うことである程度和らげることができます。'},
       {e:'🏠', t:'腹膜透析は針を刺さない',              b:'腹膜透析はお腹のカテーテルに液を繋ぐだけで、毎回針を刺しません。少し張る感覚がある程度で痛みはほとんどありません。'},
       {e:'🗣️', t:'遠慮なく相談を',                  b:'痛みが気になる場合は、遠慮せず医療スタッフに伝えてください。担当スタッフと一緒に対処法を考えましょう。'},
     ]},
   { id:'travel', icon:'✈️', label:'旅行できる？', q:'旅行はできますか？', short:'工夫次第で旅行を楽しめます',
     cards:[
-      {e:'😊', t:'旅行できます',                     b:'治療法を工夫すれば、国内外への旅行は十分可能です。実際に海外旅行を楽しんでいる透析患者さんもたくさんいます。'},
+      {e:'🌍', t:'旅行できます',                     b:'治療法を工夫すれば、国内外への旅行は十分可能です。実際に海外旅行を楽しんでいる透析患者さんもたくさんいます。'},
       {e:'🗾', t:'HD：旅行先で施設を予約',           b:'全国に約4,500施設あるため、旅行先でも透析を受けられます。旅行前に施設を予約するだけです。'},
       {e:'✈️', t:'CAPD：液を旅行先に送ってもらう',   b:'腹膜透析は透析液を旅行先に配送してもらう手配ができます。機械不要なCAPDは特に旅行しやすいです。'},
       {e:'🫀', t:'移植後は旅行の幅が大きく広がる',   b:'腎移植後は薬を継続すれば、旅行の幅が大きく広がります。透析の時間に縛られない生活が期待できます。'},
     ]},
   { id:'food', icon:'🍽️', label:'食事はどうなる？', q:'家族と別の食事になりますか？', short:'工夫次第でご家族と同じ食事を楽しめます',
     cards:[
-      {e:'😊', t:'別々の食事は不要です',             b:'完全に別メニューを作る必要はありません。ご家族のおかずから先に取り分け、後から家族分だけ調味料を足す工夫で対応できます。'},
+      {e:'🍱', t:'別々の食事は不要です',             b:'完全に別メニューを作る必要はありません。ご家族のおかずから先に取り分け、後から家族分だけ調味料を足す工夫で対応できます。'},
       {e:'🧂', t:'主な注意点：塩分',                 b:'どの治療法でも、塩分（ナトリウム）の制限は大切です。血圧管理のために重要です。'},
       {e:'🥦', t:'HDはカリウムに注意',              b:'血液透析ではカリウム（野菜・果物）を制限することが多いですが、茹でこぼしなどの工夫で野菜も食べられます。'},
       {e:'🥗', t:'腹膜透析はカリウム制限が比較的緩め', b:'腹膜透析はカリウムが除去されやすく、生野菜・果物の制限がHDより緩めなことが多いです。'},
@@ -665,20 +1032,28 @@ const FAQS = [
     ]},
   { id:'family', icon:'👨‍👩‍👧', label:'家族の負担は？', q:'家族に負担をかけますか？', short:'一人でもできる治療法があります',
     cards:[
-      {e:'😊', t:'一人でもできる方法があります',     b:'施設透析（HD）や腹膜透析（CAPD・APD）は、基本的に一人で行える治療です。家族の手助けは必須ではありません。'},
+      {e:'🙋', t:'一人でもできる方法があります',     b:'施設透析（HD）や腹膜透析（CAPD・APD）は、基本的に一人で行える治療です。家族の手助けは必須ではありません。'},
       {e:'🤝', t:'HHDは介助者のサポートが必要',      b:'在宅血液透析（HHD）は原則として、一緒にトレーニングを受けたご家族（介助者）のサポートが必要です。日々の準備など、無理のない分担を一緒に考えましょう。'},
       {e:'❤️', t:'家族も一緒に説明を聞こう',         b:'ご家族が治療を理解してくれると、患者さんの精神的な安心感が大きく変わります。外来にご家族と来ていただくことをおすすめします。'},
       {e:'🗣️', t:'本音を話し合うことが大切',         b:'「迷惑をかけたくない」と一人で抱え込まず、ご家族と率直に話し合うことが長く治療を続けるための基盤になります。'},
     ]},
   { id:'change', icon:'🔄', label:'途中で変えられる？', q:'一度選んだ治療法は変えられますか？', short:'「治療のリレー」という考え方があります',
     cards:[
-      {e:'😊', t:'変えることができます',             b:'「一度決めたら一生」ではありません。体調・年齢・ライフスタイルの変化に合わせて治療法を変更できます。'},
+      {e:'💡', t:'変えることができます',             b:'「一度決めたら一生」ではありません。体調・年齢・ライフスタイルの変化に合わせて治療法を変更できます。'},
       {e:'🔄', t:'治療のリレー（統合的腎代替療法）', b:'最初に腹膜透析で始め、数年後に血液透析に切り替える。そこから腎移植を目指す。このように治療をリレーのようにつないでいく考え方があります。'},
       {e:'📈', t:'代表的な移行パターン',            b:'①腹膜透析で開始→血液透析へ移行　②血液透析中に移植を待つ　③体が安定したら在宅血液透析へ移行　など様々なパターンがあります。'},
       {e:'💡', t:'「腹膜透析から血液透析」が自然な流れなのはなぜ？', b:'腹膜透析は「自分のおしっこ（自尿）」と「腹膜」の二人三脚で行う治療です。しかし血液透析の機械を使うと、腎臓が「もう働かなくていいんだな」とお休みしてしまい、半年〜2年ほどで自分のおしっこは出なくなってしまいます。'},
       {e:'🏃', t:'血液透析から腹膜透析へ戻りにくい理由', b:'自分のおしっこが出なくなった後に血液透析から腹膜透析へ移ろうとすると、「腹膜」だけで全ての老廃物・水分を処理しなければならず、負担が大きすぎて体の管理が難しくなります。'},
       {e:'🏅', t:'だから「腹膜透析→血液透析」が理にかなったバトンタッチ', b:'おしっこが残っているうちは腹膜透析で自分の腎臓の力も借りながら長持ちさせ、いよいよ出なくなってきたらパワフルな血液透析にバトンタッチする。これが体への負担が少ない自然な「治療のリレー」です。'},
       {e:'🗣️', t:'今から情報収集を',               b:'透析導入後に慌てて決めるのではなく、今の段階から情報を知っておくことが大切です。主治医に「どんな選択肢があるか」を聞いてみましょう。'},
+    ]},
+  { id:'tired', icon:'😴', label:'透析後に疲れる？', q:'透析の後は疲れて何もできなくなりますか？', short:'毎回ぐったりになるわけではありません',
+    cards:[
+      {e:'🚶', t:'透析後も普段通りに活動できます',     b:'ペースに体が慣れてくると、透析が終わった後にそのまま買い物に行ったり、家事や趣味を楽しんだりする方はたくさんいます。「透析の日は一日中何もできない」と諦める必要はありません。'},
+      {e:'💧', t:'疲れの主な原因は「水分の引きすぎ」', b:'透析後に強いだるさを感じる一番の原因は、短時間で多くの水分を引くことによる血圧の低下です。体がその変化についていけないときにきつさが出やすくなります。'},
+      {e:'⚠️', t:'「極端にきつい」は体からのサインです', b:'「毎回ぐったりして動けない」場合は、「透析だから当たり前」とは思わないでください。目標体重（ドライウェイト）の設定が合っていなかったり、心臓など別の原因が隠れているサインかもしれません。'},
+      {e:'🔍', t:'原因を調べてしっかり調整します',     b:'つらいときは絶対に我慢せず、スタッフに伝えてください。水分の引き方を緩やかにしたり、目標体重の設定を見直したり、他に原因がないか検査をして、快適に過ごせるようサポートします。'},
+      {e:'🥤', t:'日頃の水分管理が一番の予防になります', b:'透析と透析の間の体重（水分）増加を少なくすることが、急激に水を引く必要をなくし、「透析後の疲れ」を防ぐ一番の近道です。一緒に無理のないペースを考えていきましょう。'},
     ]},
 ];
 // ======================================================
@@ -716,57 +1091,50 @@ const STORIES = [
 // ======================================================
 // GAME DATA
 // ======================================================
-const PRIORITIES = [
-  { id:'work',    label:'仕事・社会生活',   icon:'💼' },
-  { id:'travel',  label:'旅行・外出',       icon:'✈️' },
-  { id:'home',    label:'自宅での治療',     icon:'🏠' },
-  { id:'safe',    label:'安心・安全な管理', icon:'🏥' },
-  { id:'freedom', label:'生活の自由度',     icon:'🌟' },
-];
-const TYPES = {
-  work:    { label:'仕事・社会生活重視タイプ', icon:'💼', pct:73 },
-  travel:  { label:'旅行・自由重視タイプ',     icon:'✈️', pct:68 },
-  home:    { label:'在宅・自分ペースタイプ',   icon:'🏠', pct:81 },
-  safe:    { label:'安心・安全重視タイプ',     icon:'🏥', pct:77 },
-  freedom: { label:'生活の自由度重視タイプ',   icon:'🌟', pct:65 },
+// 治療法ごとの結果画面説明文
+const TREAT_RESULT_DESC = {
+  hd:   '週3回クリニックへ通い、看護師・臨床工学技士が常にサポート。安心して任せられます。',
+  hhd:  '自宅で週5〜6回透析。スケジュールの自由度が高く、仕事も続けやすいです。当院一押し。',
+  capd: '1日3〜4回、自分でバッグ交換。機械不要で旅行先でも治療できます。',
+  apd:  '夜間に機械が自動透析。昼間は自由に活動でき、仕事にも向いています。',
+  tx:   '透析不要になり、食事・水分制限も大幅に緩和。待機期間があります。',
 };
+// 結果画面タイプ表示
+const TREAT_TYPES = {
+  hd:  { label:'スタッフ安心タイプ',  icon:'🏥' },
+  hhd: { label:'在宅・自己管理タイプ', icon:'🏡' },
+  pd:  { label:'在宅・自由生活タイプ', icon:'🫃' },
+  tx:  { label:'移植・制限フリータイプ', icon:'🫀' },
+};
+// 5問 直接配点ゲーム（ts = treatment scores）
 const GAME = {
   steps:[
-    { q:'今、一番心配していることは？', opts:[
-      {l:'💼 仕事を続けられるか',        s:{work:3}},
-      {l:'✈️ 旅行・外出ができるか',       s:{travel:3}},
-      {l:'🏠 自宅で治療できるか',         s:{home:3}},
-      {l:'🏥 安全に管理してもらえるか',   s:{safe:3}},
+    { q:'病院で専門スタッフに\n安心して任せたいですか？', opts:[
+      {l:'🏥 はい、スタッフに任せたい',    ts:{hd:4}},
+      {l:'△ どちらでもよい',              ts:{hd:2}},
+      {l:'🏠 自分で管理する方が好き',      ts:{}},
     ]},
-    { q:'治療はどこで受けたいですか？', opts:[
-      {l:'🏥 病院・クリニックに通いたい', s:{safe:3}},
-      {l:'🏠 できれば家で受けたい',       s:{home:3, freedom:1}},
-      {l:'🤷 どちらでもかまわない',       s:{safe:1, home:1, freedom:1}},
+    { q:'通院回数はできるだけ\n減らしたいですか？', opts:[
+      {l:'✅ はい、減らしたい',            ts:{hhd:2, pd:2, tx:2}},
+      {l:'△ どちらでもよい',              ts:{hhd:1, pd:1, tx:1}},
+      {l:'🏥 通院は気にならない',          ts:{hd:2}},
     ]},
-    { q:'旅行や外出はあなたにとって大切ですか？', opts:[
-      {l:'✈️ とても大切',  s:{travel:3, freedom:2}},
-      {l:'🚶 まあ大切',    s:{travel:2, freedom:1}},
-      {l:'🏡 あまりしない', s:{safe:2}},
+    { q:'自分で機械や治療を\n管理することに挑戦してみたいですか？', opts:[
+      {l:'✅ はい、挑戦したい',            ts:{hhd:3, pd:3}},
+      {l:'△ どちらかといえばそう',         ts:{hhd:1, pd:1}},
+      {l:'🏥 スタッフに任せたい',          ts:{hd:2}},
     ]},
-    { q:'お仕事・学業のスケジュールは？', opts:[
-      {l:'💼 フルタイムで忙しい',     s:{work:3, freedom:2}},
-      {l:'🕐 比較的時間に余裕がある', s:{home:1, safe:1, freedom:2}},
-      {l:'🏠 退職・専業主婦など',     s:{safe:2, home:1}},
+    { q:'ご家族の協力・サポートが\n得られますか？', opts:[
+      {l:'👨‍👩‍👧 はい、協力してもらえる',    ts:{hhd:3, pd:1, tx:1}},
+      {l:'△ ある程度は大丈夫',             ts:{hhd:1, pd:1, tx:1}},
+      {l:'🙋 自分一人で行いたい',           ts:{hd:1, pd:1}},
     ]},
-    { q:'治療を選ぶとき、最も大切にしたいことは？', opts:[
-      {l:'❤️ 家族との時間',                 s:{home:2, freedom:2}},
-      {l:'🍽️ 食事の自由',                   s:{freedom:3}},
-      {l:'📅 通院回数を減らしたい',          s:{home:2, freedom:2}},
-      {l:'👩‍⚕️ スタッフに安心して任せたい',  s:{safe:3}},
+    { q:'手術を受けること・\n一生薬を飲み続けることを\n受け入れられますか？', opts:[
+      {l:'✅ はい、受け入れられる',          ts:{tx:3}},
+      {l:'△ 少し不安だが前向きに考えたい',  ts:{tx:1}},
+      {l:'⚠️ できれば避けたい',              ts:{hd:1, hhd:1, pd:1}},
     ]},
   ]
-};
-const THERAPY_PRIORITY = {
-  hd:   { work:'夜間透析のクリニックを選べば、日中は仕事ができます', travel:'全国約4,500施設があり、旅行先でも予約すれば透析を受けられます', home:'施設への通院が必要です', safe:'看護師・臨床工学技士が常にそばにいます', freedom:'週3回（目安）の通院スケジュールが必要です' },
-  hhd:  { work:'透析時間を自分で設定でき、仕事に合わせやすいです', travel:'通院不要で外出しやすいですが、機器の準備が必要です', home:'自宅で治療できます。通院は月数回です', safe:'トレーニング後は自宅で管理。緊急時のサポート体制も重要です', freedom:'透析スケジュールを自分でコントロールできます' },
-  capd: { work:'スケジュールに合わせてバッグ交換の時間を調整できます', travel:'透析液を旅行先に配送でき、機械不要で旅行しやすいです', home:'自宅・どこでも治療できます。通院は月数回です', safe:'清潔操作と定期通院で安全に管理できます', freedom:'カリウム制限が比較的緩く、食事の自由度が高めです' },
-  apd:  { work:'夜間透析するため、昼間はほぼ自由に仕事ができます', travel:'通院回数が少なく、昼間の活動がしやすいです', home:'自宅で夜間に自動治療。昼間は外出できます', safe:'毎晩機械が管理します。操作のトレーニングが必要です', freedom:'昼間が比較的自由です' },
-  tx:   { work:'移植成功後は透析なしで、フルタイムで働ける方も多いです', travel:'薬を忘れなければ、ほぼどこでも旅行できます', home:'透析が不要になるため、自宅での治療装置も不要です', safe:'免疫抑制薬を継続し、定期検査が必要です', freedom:'食事・水分制限が大幅に緩和されます' },
 };
 // ======================================================
 // CARD VIEWER
@@ -821,7 +1189,7 @@ function buildFaqGrid() {
   ).join('');
 }
 function buildWorryGrid() {
-  const ids=['life','money','work','pain','travel','change'];
+  const ids=['life','money','work','pain','travel','tired'];
   document.getElementById('worry-grid').innerHTML = ids.map(id=>{
     const f=FAQS.find(x=>x.id===id);
     return `<button class="tile-btn" onclick="showFaq('${f.id}')">
@@ -907,50 +1275,72 @@ function gameAns(i, btn) {
 }
 function gamePrev() { if(GS.step>0){GS.step--;renderGame();window.scrollTo(0,0);}else goBack(); }
 function calcAndShowResult() {
-  const pScores={work:0,travel:0,home:0,safe:0,freedom:0};
+  // 各治療に直接加算
+  const tScores = {hd:0, hhd:0, pd:0, tx:0};
   GS.answers.forEach((ai,si)=>{
-    const s=GAME.steps[si].opts[ai].s;
-    Object.keys(s).forEach(k=>{ if(pScores[k]!==undefined)pScores[k]+=s[k]; });
+    const ts = GAME.steps[si].opts[ai].ts || {};
+    Object.keys(ts).forEach(k=>{ if(tScores[k]!==undefined) tScores[k]+=ts[k]; });
   });
-  const sorted=PRIORITIES.slice().sort((a,b)=>pScores[b.id]-pScores[a.id]);
-  const maxScore=Math.max(...Object.values(pScores),1);
-  const topId=sorted[0].id;
-  const type=TYPES[topId];
+  // capd と apd は同じ pd スコアを使用
+  const allRanked = [
+    {id:'hd',   score:tScores.hd},
+    {id:'hhd',  score:tScores.hhd},
+    {id:'capd', score:tScores.pd},
+    {id:'apd',  score:tScores.pd},
+    {id:'tx',   score:tScores.tx},
+  ].sort((a,b)=>b.score-a.score);
+
+  const topId = allRanked[0].id;
+  const topKey = (topId==='capd'||topId==='apd') ? 'pd' : topId;
+  const type = TREAT_TYPES[topKey];
+
+  // スコアバー表示（治療グループ単位）
+  const maxPossible = {hd:10, hhd:9, pd:7, tx:6};
+  const groupRanked = [
+    {key:'hd',  label:'施設透析（HD）',      icon:'🏥', color:T.hd.color,   score:tScores.hd,  max:maxPossible.hd},
+    {key:'hhd', label:'在宅血液透析（HHD）',  icon:'🏡', color:T.hhd.color,  score:tScores.hhd, max:maxPossible.hhd},
+    {key:'pd',  label:'腹膜透析（PD）',       icon:'🫃', color:T.capd.color, score:tScores.pd,  max:maxPossible.pd},
+    {key:'tx',  label:'腎移植',               icon:'🫀', color:T.tx.color,   score:tScores.tx,  max:maxPossible.tx},
+  ].sort((a,b)=>b.score-a.score);
+
   let html=`
     <div class="result-hero">
       <div class="rh-label">あなたのタイプ</div>
       <div class="rh-ico">${type.icon}</div>
       <div class="rh-type">${type.label}</div>
-      <div class="rh-pct">あなたと似た方 <strong>${type.pct}</strong>%</div>
     </div>
     <div class="card" style="margin-bottom:16px;">
-      <div class="card-title">あなたが大切にしていること</div>
-      ${sorted.map(p=>{
-        const sc=pScores[p.id];
-        const stars=Math.max(1,Math.round((sc/maxScore)*5));
+      <div class="card-title">治療法マッチ度</div>
+      ${groupRanked.map(g=>{
+        const stars = Math.max(1, Math.round((g.score/g.max)*5));
         return `<div class="pri-row">
-          <div class="pr-ico">${p.icon}</div>
-          <div class="pr-lbl">${p.label}</div>
-          <div class="pr-star">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</div>
+          <div class="pr-ico">${g.icon}</div>
+          <div class="pr-lbl">${g.label}</div>
+          <div class="pr-star" style="color:${g.color};">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</div>
         </div>`;
       }).join('')}
     </div>
-    <div style="font-size:1.05rem;font-weight:700;color:var(--primary);margin:0 0 12px;">各治療法と「${sorted[0].label}」</div>
+    <div style="font-size:1.05rem;font-weight:700;color:var(--primary);margin:0 0 12px;">あなたへのおすすめ順</div>
   `;
-  ['hd','hhd','capd','apd','tx'].forEach(id=>{
+  allRanked.forEach(({id},rank)=>{
     const t=T[id];
-    const desc=THERAPY_PRIORITY[id][topId];
+    const desc=TREAT_RESULT_DESC[id];
+    const badge = rank===0
+      ? `<span style="font-size:0.72rem;font-weight:800;background:${t.color};color:#fff;padding:2px 9px;border-radius:20px;margin-left:8px;">★ あなたに最も合うかも</span>`
+      : '';
     html+=`
-    <div class="tr-card">
+    <div class="tr-card" style="${rank===0?`border:2px solid ${t.color};`:''}">
       <div class="tr-hd">
         <div class="tr-ico-wrap" style="background:${t.bg};">${t.icon}</div>
-        <div class="tr-name" style="color:${t.color};">${t.name}</div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
+          <div class="tr-name" style="color:${t.color};">${t.name}</div>${badge}
+        </div>
       </div>
       <div class="tr-pts">${desc}</div>
       <button class="tr-more" style="background:${t.bg};color:${t.color};" onclick="startTherapy('${id}')">詳しく見る →</button>
     </div>`;
   });
-  _lastResultData = { type, sorted, pScores, maxScore };
+  _lastResultData = { type, groupRanked, tScores };
   document.getElementById('result-content').innerHTML=html;
   go('s-result');
 }
@@ -970,22 +1360,21 @@ function toggleFont() {
 let _lastResultData = null;
 function showDoctorView() {
   if (!_lastResultData) return;
-  const { type, sorted, pScores, maxScore } = _lastResultData;
+  const { type, groupRanked } = _lastResultData;
   let html = `
     <div class="dv-type-card">
       <div class="dt-ico">${type.icon}</div>
       <div class="dt-type">${type.label}</div>
     </div>
     <div class="card" style="margin-bottom:0;">
-      <div class="card-title" style="margin-bottom:16px;">大切にしていること（優先順）</div>
+      <div class="card-title" style="margin-bottom:16px;">治療法マッチ度（患者さん回答より）</div>
   `;
-  sorted.forEach(p => {
-    const sc = pScores[p.id];
-    const stars = Math.max(1, Math.round((sc / maxScore) * 5));
+  groupRanked.forEach(g => {
+    const stars = Math.max(1, Math.round((g.score / g.max) * 5));
     html += `<div class="dv-pri-row">
-      <div class="dp-ico">${p.icon}</div>
-      <div class="dp-lbl">${p.label}</div>
-      <div class="dp-star">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</div>
+      <div class="dp-ico">${g.icon}</div>
+      <div class="dp-lbl">${g.label}</div>
+      <div class="dp-star" style="color:${g.color};">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</div>
     </div>`;
   });
   html += `</div>`;
