@@ -143,6 +143,18 @@
     }
     .big-card .bt { font-size: 1.45rem; font-weight: 800; margin-bottom: 16px; color: var(--text); }
     .big-card .bb { font-size: 1.1rem; line-height: 1.85; color: var(--text-sub); text-align: left; }
+    /* ── 音声読み上げボタン ── */
+    .speak-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px; margin-top: 18px; margin-bottom: 4px;
+      background: #dbeafe; color: #1e40af;
+      border: 2px solid #93c5fd; border-radius: 16px;
+      font-size: 1.15rem; font-weight: 800; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .speak-btn:active { background: #bfdbfe; }
+    .speak-btn.speaking { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+    .speak-btn .sb-icon { font-size: 1.5rem; flex-shrink: 0; }
     /* ── Main 2 Tiles ── */
     .main-tile {
       background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
@@ -938,6 +950,9 @@
       <div class="bt" id="cv-ctitle">タイトル</div>
       <div class="bb" id="cv-cbody">本文</div>
     </div>
+    <button class="speak-btn" id="cv-speak-btn" onclick="toggleSpeak()">
+      <span class="sb-icon">🔊</span><span id="cv-speak-label">読み上げる</span>
+    </button>
     <button class="btn primary" id="cv-next" onclick="cardNext()">次へ →</button>
   </div>
 </div>
@@ -1350,6 +1365,74 @@ const GAME = {
   ]
 };
 // ======================================================
+// 音声読み上げ
+// ======================================================
+let _speakText = '';
+let _isSpeaking = false;
+function fixReading(text) {
+  return text
+    .replace(/体の外/g, 'からだのそと')
+    .replace(/体へ/g, 'からだへ')
+    .replace(/体に/g, 'からだに')
+    .replace(/体から/g, 'からだから')
+    .replace(/体が/g, 'からだが')
+    .replace(/体を/g, 'からだを')
+    .replace(/体は/g, 'からだは')
+    .replace(/体で/g, 'からだで')
+    .replace(/体も/g, 'からだも')
+    .replace(/体と/g, 'からだと')
+    .replace(/老廃物/g, 'ろうはいぶつ')
+    .replace(/1日/g, 'いちにち')
+    .replace(/拡張術/g, 'かくちょうじゅつ')
+    .replace(/方が/g, 'かたが')
+    .replace(/方に/g, 'かたに')
+    .replace(/方は/g, 'かたは')
+    .replace(/方を/g, 'かたを')
+    .replace(/方の/g, 'かたの')
+    .replace(/方で/g, 'かたで')
+    .replace(/方へ/g, 'かたへ')
+    .replace(/方も/g, 'かたも')
+    .replace(/方。/g, 'かた。')
+    .replace(/方$/g, 'かた')
+    .replace(/腸骨窩/g, 'ちょうこつか')
+    .replace(/①/g, 'いち、')
+    .replace(/②/g, 'に、')
+    .replace(/③/g, 'さん、')
+    .replace(/④/g, 'よん、')
+    .replace(/⑤/g, 'ご、')
+    .replace(/⑥/g, 'ろく、')
+    .replace(/⑦/g, 'なな、')
+    .replace(/⑧/g, 'はち、')
+    .replace(/⑨/g, 'きゅう、')
+    .replace(/⑩/g, 'じゅう、');
+}
+function stopSpeak() {
+  _isSpeaking = false;
+  window.speechSynthesis.cancel();
+  const btn = document.getElementById('cv-speak-btn');
+  const lbl = document.getElementById('cv-speak-label');
+  if (btn) { btn.classList.remove('speaking'); }
+  if (lbl) { lbl.textContent = '読み上げる'; }
+  const icon = btn && btn.querySelector('.sb-icon');
+  if (icon) icon.textContent = '🔊';
+}
+function toggleSpeak() {
+  const btn = document.getElementById('cv-speak-btn');
+  if (_isSpeaking) { stopSpeak(); return; }
+  window.speechSynthesis.cancel();
+  const uttr = new SpeechSynthesisUtterance(_speakText);
+  uttr.lang = 'ja-JP';
+  uttr.rate = 0.88;
+  uttr.pitch = 1.0;
+  uttr.onend = () => stopSpeak();
+  uttr.onerror = () => stopSpeak();
+  _isSpeaking = true;
+  window.speechSynthesis.speak(uttr);
+  btn.classList.add('speaking');
+  document.getElementById('cv-speak-label').textContent = '⏹ 止める';
+  btn.querySelector('.sb-icon').textContent = '🔈';
+}
+// ======================================================
 // CARD VIEWER
 // ======================================================
 let CV = { type:'therapy', id:null, idx:0 };
@@ -1357,6 +1440,7 @@ function startTherapy(id) { CV={type:'therapy',id,idx:0}; renderCV(); go('s-card
 function startStory(id)   { CV={type:'story',  id,idx:0}; renderCV(); go('s-card-viewer'); }
 function cvSrc() { return CV.type==='therapy' ? T[CV.id] : STORIES.find(s=>s.id===CV.id); }
 function renderCV() {
+  stopSpeak();
   const src=cvSrc(), c=src.cards[CV.idx], n=src.cards.length;
   const hdr=document.getElementById('cv-hdr');
   hdr.style.background=`linear-gradient(135deg,${src.color}cc,${src.color})`;
@@ -1366,6 +1450,7 @@ function renderCV() {
   document.getElementById('cv-emoji').textContent = c.e;
   document.getElementById('cv-ctitle').textContent= c.t;
   document.getElementById('cv-cbody').innerHTML = c.b.replace(/\n/g,'<br>');
+  _speakText = fixReading(c.t + '。' + c.b.replace(/<[^>]+>/g, '').replace(/\n/g, '。'));
   const nb=document.getElementById('cv-next');
   nb.textContent       = CV.idx===n-1 ? '完了 ✓' : '次へ →';
   nb.style.background  = src.color;
