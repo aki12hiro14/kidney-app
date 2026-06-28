@@ -292,7 +292,7 @@
     /* ── Misc ── */
     .hl-box { background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 0 14px 14px 0; padding: 16px 14px; font-size: 0.95rem; line-height: 1.75; color: var(--text-sub); margin: 12px 0; }
     .sec-lbl { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; color: #aaa; margin: 20px 0 10px; }
-    .divider { display: flex; align-items: center; gap: 10px; color: #cbd5e1; font-size: 0.85rem; margin: 20px 0; }
+    .divider { display: flex; align-items: center; gap: 10px; color: #b91c1c; font-size: 0.95rem; font-weight: 800; text-shadow: 1px 1px 2px rgba(0,0,0,0.4); margin: 20px 0; }
     .divider::before, .divider::after { content: ''; flex: 1; border-top: 1px solid var(--border); }
     .disc { font-size: 0.82rem; color: var(--text-sub); text-align: center; line-height: 1.6; margin-top: 20px; padding: 14px; background: var(--bg); border-radius: 12px; border: 1px solid var(--border); }
     /* ── Font Toggle Button (A+) ── */
@@ -567,6 +567,22 @@
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
       }
       .print-only { display: block !important; }
+      /* ── A4 1枚に収める（主治医シート） ── */
+      @page { size: A4; margin: 10mm 12mm; }
+      #s-doctor { font-size: 11px; }
+      #s-doctor .dv-banner { padding: 8px 10px 6px !important; }
+      #s-doctor .dv-banner .dv-label { font-size: 0.68rem !important; margin-bottom: 2px !important; }
+      #s-doctor .dv-banner .dv-heading { font-size: 0.95rem !important; }
+      #s-doctor #doctor-report-meta { font-size: 0.66rem !important; padding: 4px 0 6px !important; }
+      #s-doctor .content { padding-top: 6px !important; padding-bottom: 0 !important; }
+      #s-doctor .card { padding: 8px 10px !important; margin-bottom: 6px !important; border-radius: 10px !important; page-break-inside: avoid; }
+      #s-doctor .card-title { font-size: 0.8rem !important; margin-bottom: 4px !important; }
+      #s-doctor .value-list { gap: 3px !important; margin-bottom: 0 !important; }
+      #s-doctor .value-item { padding: 5px 8px !important; gap: 8px !important; border-radius: 8px !important; page-break-inside: avoid; }
+      #s-doctor .value-item .vi-num { width: 17px !important; height: 17px !important; font-size: 0.62rem !important; }
+      #s-doctor .value-item .vi-q { font-size: 0.6rem !important; margin-bottom: 1px !important; }
+      #s-doctor .value-item .vi-a { font-size: 0.75rem !important; line-height: 1.25 !important; }
+      #s-doctor .disc { font-size: 0.6rem !important; padding: 6px 8px !important; margin-top: 6px !important; line-height: 1.3 !important; }
     }
     .print-only { display: none; }
 
@@ -697,7 +713,7 @@
         <span class="hb-arr">›</span>
       </button>
     </div>
-    <div class="divider">何が心配ですか？</div>
+    <div class="divider">よくある質問トップ7</div>
     <div class="grid-2" id="worry-grid"></div>
     <div style="margin-top:10px;">
       <button class="btn ghost" style="min-height:56px;" onclick="go('s-stories')">
@@ -898,6 +914,7 @@
             <div style="width:0.2%;height:100%;background:#1a8c78;border-radius:6px;min-width:4px;"></div>
           </div>
         </div>
+        <div style="font-size:0.8rem;color:var(--text-sub);line-height:1.6;margin-top:10px;">※この比率は「今まさに受けている治療」の割合で、最初に選んだ治療がそのまま続いているとは限りません。PDから血液透析へ移ることがあるなど、治療の継続期間や医学的な適応によって変わります。</div>
       </div>
     </div>
 
@@ -1351,13 +1368,23 @@
     <button class="hdr-font-btn" onclick="toggleFont()" aria-label="文字の大きさ切替">A+</button>
   </div>
   <div class="content">
-    <div id="result-content"></div>
-    <div class="doc-msg">
-      <div class="dm-from">👨‍⚕️ 医療チームから</div>
-      <div class="dm-text">この結果は「治療の答え」ではなく、<strong>話し合いの出発点</strong>です。<br><br>医学的に選べる治療と、あなたが大切にしたい生活を重ね合わせて、一緒に決めていきます。今日決めきれなくても大丈夫です。</div>
+    <div id="report-card" style="background:#fff;border-radius:18px;">
+      <div id="report-meta" style="display:none;text-align:center;padding:6px 4px 14px;color:var(--text-sub);font-size:0.78rem;font-weight:700;letter-spacing:0.03em;"></div>
+      <div id="result-content-top" style="display:none;"></div>
+      <div id="considering-section" style="margin-bottom:16px;"></div>
+      <div id="result-actions" style="margin:4px 0 22px;padding:18px 16px;background:linear-gradient(135deg,#fff7ed,#fffbeb);border:2.5px solid #fbbf24;border-radius:20px;box-shadow:0 4px 16px rgba(251,191,36,0.25);">
+        <div id="sdm-intro-section"></div>
+        <div class="no-capture print-hide">
+          <div style="font-size:0.86rem;font-weight:900;color:#92400e;margin-bottom:12px;text-align:center;letter-spacing:0.02em;">📋 この内容を持って、次の診察へ</div>
+          <button class="btn accent" onclick="showDoctorView()" style="margin-bottom:0;font-size:1.08rem;">🩺 話し合いシートを主治医に見せる</button>
+        </div>
+      </div>
+      <div id="result-content-bottom"></div>
+      <div class="doc-msg">
+        <div class="dm-from">👨‍⚕️ 医療チームから</div>
+        <div class="dm-text">この結果は「治療の答え」ではなく、<strong>話し合いの出発点</strong>です。<br><br>医学的に選べる治療と、あなたが大切にしたい生活を重ね合わせて、一緒に決めていきます。今日決めきれなくても大丈夫です。</div>
+      </div>
     </div>
-    <button class="btn accent" onclick="showDoctorView()" style="margin-bottom:10px;font-size:1.1rem;">🩺 話し合いシートを主治医に見せる</button>
-    <button class="btn ghost" onclick="window.print()" style="margin-bottom:10px;">🖨 結果を印刷・PDFで保存</button>
     <button class="btn primary" onclick="gameStart()" style="margin-bottom:10px;">🔄 もう一度整理する</button>
     <button class="btn ghost" onclick="fabHome()">🏠 トップへ</button>
   </div>
@@ -1369,14 +1396,19 @@
     <div class="dv-heading">先生へ：患者さんの価値観</div>
   </div>
   <div class="content" style="padding-top:20px; padding-bottom:80px;">
-    <div id="dv-content"></div>
+    <div id="doctor-report-card" style="background:#fff;border-radius:18px;">
+      <div id="doctor-report-meta" style="text-align:center;padding:0 4px 14px;color:var(--text-sub);font-size:0.78rem;font-weight:700;letter-spacing:0.03em;"></div>
+      <div id="dv-content"></div>
+    </div>
     <div class="disc">この結果は患者さんが回答した価値観の整理です。<br>実際の治療選択は先生とご相談ください。</div>
   </div>
   <div class="print-hide" style="position:fixed;bottom:0;left:0;right:0;padding:16px 20px 32px;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-top:1px solid var(--border);display:flex;gap:10px;">
-    <button class="btn ghost" onclick="goBack()" style="margin-bottom:0;flex:1;">× 閉じる</button>
-    <button class="btn primary" onclick="window.print()" style="margin-bottom:0;flex:1;">🖨 印刷・PDF保存</button>
+    <button class="btn ghost" onclick="goBack()" style="margin-bottom:0;flex:1;">‹ 戻る</button>
+    <button class="btn ghost" onclick="saveReportImage('doctor-report-card')" style="margin-bottom:0;flex:1;">📷 写真で保存</button>
+    <button class="btn primary" onclick="window.print()" style="margin-bottom:0;flex:1;">🖨 印刷</button>
   </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 // ======================================================
 // NAVIGATION
@@ -1506,7 +1538,7 @@ const FAQS = [
     cards:[
       {e:'📈', t:'年齢別の平均余命（参考データ）', b:'JSDTの調査では、透析を受けている患者さん全体について、その年の生存・死亡の状況から計算した「平均余命（今後生きられる年数の目安）」が年齢ごとに算出されています。<br><br>50歳　約17〜20年<br>60歳　約12〜14年<br>70歳　約8〜9年<br>80歳　約5〜6年<br><br>これは「ここで寿命が尽きる」という意味ではありません。重い合併症がある方や高度フレイルの方も含めた、その年齢の透析患者さん全体の平均的な目安です。合併症が少なく、食事・水分の自己管理がしっかりできている方は、この年数を大きく上回ることが少なくありません。<br><br><span style="font-size:0.78rem;color:#94a3b8;">出典：日本透析医学会「わが国の慢性透析療法の現況（2021年12月31日現在）」補足表14（2020年の生存・死亡状況に基づく平均余命、男女の値を範囲で表示）</span>'},
       {e:'💧', t:'透析で改善できること', b:'尿毒症、むくみ、息苦しさ、高カリウム血症などを改善し、生命を延ばせる可能性があります。比較的元気で自立した方では、透析の利益が大きいことがあります。<br><br>血液透析を受けている方では、透析と透析の間に体重（水分）が大きく増えるほど、心臓に負担がかかり心不全が悪化しやすくなることが分かっています。逆に言えば、<strong style="color:#e53e3e;">自宅での水分・塩分の管理は、ただ我慢するためのものではなく、長期的な見通しに直結する「ご自身にできる一番大きな取り組み」</strong>です。'},
-      {e:'📊', t:'透析患者の主な死因（2024年）', b:'これは、日本人全体の死因とはっきり違います。一般の方は「がん→心疾患→老衰」の順ですが、透析を受けている方では感染症が1位です。<br><br><div style="border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;margin:4px 0 12px;"><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.8rem;font-weight:800;"><div style="background:#fef2f2;color:#b91c1c;padding:8px 6px;text-align:center;">透析患者</div><div style="background:#eff6ff;color:#1d4ed8;padding:8px 6px;text-align:center;border-left:1px solid #e2e8f0;">日本人全体</div></div><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.85rem;text-align:center;border-top:1px solid #e2e8f0;"><div style="padding:8px 6px;">① 感染症 約24%</div><div style="padding:8px 6px;border-left:1px solid #e2e8f0;">① がん 約24%</div></div><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.85rem;text-align:center;border-top:1px solid #e2e8f0;"><div style="padding:8px 6px;">② 心不全 約19%</div><div style="padding:8px 6px;border-left:1px solid #e2e8f0;">② 心疾患 約14%</div></div><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.85rem;text-align:center;border-top:1px solid #e2e8f0;"><div style="padding:8px 6px;">③ 悪性腫瘍 約7%</div><div style="padding:8px 6px;border-left:1px solid #e2e8f0;">③ 老衰 約13%</div></div></div>透析という治療自体や、加齢・低栄養などにより、感染症に対する抵抗力が下がりやすいことが背景にあります。以前は心不全が1位でしたが、2006年頃から感染症が最も多い死因になりました。<br><br><strong style="color:#e53e3e;">だからこそ、肺炎球菌ワクチン・インフルエンザワクチン・帯状疱疹ワクチンの接種は特に重要です。</strong>毎日の手洗い・うがい・足の観察（フットケア）に加えて、これらの予防接種は重い感染症を防ぐための具体的な手段です。<br><br>2位の心不全を防ぐには、体重（水分）と塩分の管理が大きく関係します。<br><br><span style="font-size:0.78rem;color:#94a3b8;">出典：日本透析医学会「わが国の慢性透析療法の現況（2024年12月31日現在）」／厚生労働省「令和6年（2024年）人口動態統計」</span>'},
+      {e:'📊', t:'透析患者の主な死因（2024年）', b:'これは、日本人全体の死因とはっきり違います。一般の方は「がん→心疾患→老衰」の順ですが、透析を受けている方では感染症が1位です。<br><br><div style="border-radius:14px;overflow:hidden;border:1px solid #e2e8f0;margin:4px 0 12px;"><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.8rem;font-weight:800;"><div style="background:#fef2f2;color:#b91c1c;padding:8px 6px;text-align:center;">透析患者</div><div style="background:#eff6ff;color:#1d4ed8;padding:8px 6px;text-align:center;border-left:1px solid #e2e8f0;">日本人全体</div></div><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.85rem;text-align:center;border-top:1px solid #e2e8f0;"><div style="padding:8px 6px;">① 感染症 約24%</div><div style="padding:8px 6px;border-left:1px solid #e2e8f0;">① がん 約24%</div></div><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.85rem;text-align:center;border-top:1px solid #e2e8f0;"><div style="padding:8px 6px;">② 心不全 約19%</div><div style="padding:8px 6px;border-left:1px solid #e2e8f0;">② 心疾患 約14%</div></div><div style="display:grid;grid-template-columns:1fr 1fr;font-size:0.85rem;text-align:center;border-top:1px solid #e2e8f0;"><div style="padding:8px 6px;">③ がん 約7%</div><div style="padding:8px 6px;border-left:1px solid #e2e8f0;">③ 老衰 約13%</div></div></div>腎不全による免疫機能の低下、加齢、糖尿病、低栄養、血管アクセスやカテーテルの使用などが背景にあります。以前は心不全が最も多い死因でしたが、近年は感染症が最も多くなっています。<br><br><strong style="color:#e53e3e;">だからこそ、肺炎球菌ワクチン・インフルエンザワクチン・帯状疱疹ワクチンの接種は特に重要です。</strong>毎日の手洗い・うがい・足の観察（フットケア）に加えて、これらの予防接種は重い感染症を防ぐための具体的な手段です。<br><br>2位の心不全を防ぐには、体重（水分）と塩分の管理が大きく関係します。<br><br><span style="font-size:0.78rem;color:#94a3b8;">出典：日本透析医学会「わが国の慢性透析療法の現況（2024年12月31日現在）」／厚生労働省「令和6年（2024年）人口動態統計」</span>'},
       {e:'🔍', t:'治療法によって報告されている特徴があります', b:'<strong>施設血液透析（HD/HDF）</strong>：十分な治療量を確保することで、尿毒症や体液過剰による心臓への負担を改善できます。<br><br><strong>在宅血液透析（HHD）</strong>：頻回・長時間行う場合、施設透析より緩やかに水分を引けるぶん心臓への負担が少なくなり、良好な生命予後が報告されることがあります。<br><br><strong>腹膜透析（PD）</strong>：残っている腎機能を保ちやすい傾向があり、生活の質を保ちながら続けられる方が多くいます。<br><br><strong>腎移植</strong>：適応がある方では、透析を続けるより生命予後が改善する可能性が高いとされています。'},
       {e:'🌿', t:'CKMを選ぶ場合', b:'一般には透析より生存期間が短くなる可能性がありますが、高度フレイルや重い併存疾患がある方では、透析による上乗せ利益が小さい場合があります。症状緩和と本人が大切にする生活を中心にします。'},
       {e:'🏡', t:'治療法の比較には限界があります', b:'在宅透析や移植で良好な成績が報告されても、選ばれる患者さんの年齢や自立度が異なるため、単純な順位づけはできません。医学的適応と生活目標の両方を確認します。'},
@@ -1519,6 +1551,14 @@ const FAQS = [
       {e:'♿', t:'②身体障害者手帳（1級）の取得',       b:'透析を始めるタイミングで、原則として身体障害者手帳「1級」を取得できます。税金の控除・交通機関や高速道路の割引など、生活を支える様々な福祉サポートを受けられるようになります。'},
       {e:'🏛️', t:'③自治体の医療費助成でさらに軽くなることも', b:'手帳1級を取得すると、お住まいの自治体が実施している「重度心身障害者への医療費助成」を受けられる場合があります。所得などの条件を満たせば、①の1万円からさらに自己負担が軽くなることがあります。'},
       {e:'🗣️', t:'④申請の手順はしっかりご案内します',   b:'申請はご本人・ご家族が市役所等の窓口で行っていただく必要がありますが、「いつ・どこへ・何の書類を出せばよいか」は当院スタッフが分かりやすくご説明します。「役所の手続きは難しそう…」と一人で悩まず、まずご相談ください。'},
+    ]},
+  { id:'tx-donor', icon:'🎂', label:'腎移植は何歳までできるの？', q:'腎移植は何歳までできますか？', short:'年齢だけで決まるものではありません',
+    cards:[
+      {e:'🎂', t:'年齢の上限はありますか？', b:'腎移植を受ける年齢に、一律の上限はありません。<br><br>日本移植学会の指針では<strong style="color:#e53e3e;">70歳</strong>前後が一つの目安とされていますが、<strong style="color:#e53e3e;">70歳</strong>を超えていても、心臓や肺の状態、がんや感染症の有無、体力、服薬管理などに問題がなければ、腎移植を受けられる可能性があります。<br><br>年齢だけで決めるのではなく、実際の体の状態や手術に耐えられるかを、移植施設で総合的に判断します。「もう高齢だから無理」と自分で決めず、希望があれば主治医にご相談ください。'},
+      {e:'🤝', t:'ちなみに：腎臓は誰からもらうの？', b:'腎移植には、生きている方から腎臓を1つ提供してもらう<strong>生体腎移植</strong>と、亡くなられた方から提供された腎臓を移植する<strong>献腎移植</strong>の2つの方法があります。'},
+      {e:'👨‍👩‍👧', t:'生体腎移植', b:'ご家族など、生きている方から、2つある腎臓のうち1つを提供してもらう方法です。提供者（ドナー）として多いのは、配偶者・親・兄弟姉妹・成人した子どもなどです。<br><br>血液型が違っていても、検査や治療（脱感作療法）によって移植できる場合があります。<br><br>ただし、提供する方の健康と自由な意思が最優先です。本人が望まない場合に、提供を求めることはできません。'},
+      {e:'🕊️', t:'献腎移植', b:'亡くなられた方が生前に示した意思や、ご家族の承諾によって提供された腎臓を移植する方法です。腎臓は、脳死と判定された方、または心臓が停止して亡くなられた方から提供されることがあります。<br><br>特定の知人から直接もらうのではなく、あらかじめ日本臓器移植ネットワークに登録し、提供があったときに血液型や適合性、待機期間などに基づいて移植を受ける方が選ばれます。<br><br>提供数が限られているため、登録してもすぐに受けられるわけではなく、平均約14年9か月という長い期間待つことがあります。'},
+      {e:'📝', t:'まとめ', b:'<strong>生体腎移植</strong>：生きているご家族などから、腎臓を1つ提供してもらう方法<br><br><strong>献腎移植</strong>：亡くなられた方から提供された腎臓を、日本臓器移植ネットワークを通じて移植する方法<br><br>どちらも、移植施設で詳しい検査と説明を受けたうえで進めます。'},
     ]},
   { id:'work', icon:'💼', label:'仕事は続けられる？', q:'仕事は辞めないといけませんか？', short:'辞める必要はありません！',
     cards:[
@@ -1615,9 +1655,9 @@ const STORIES = [
 // VALUE CLARIFICATION DATA
 // ======================================================
 const OPTION_META = {
-  hd:  {name:'施設血液透析（HD/HDF）', icon:'🏥', color:'#2874a6', bg:'#eff6ff', open:'hd'},
+  hd:  {name:'血液透析（HD）', icon:'🏥', color:'#2874a6', bg:'#eff6ff', open:'hd'},
   hhd: {name:'在宅血液透析（HHD）', icon:'🏡', color:'#1a8c78', bg:'#ecfdf5', open:'hhd'},
-  pd:  {name:'腹膜透析（PD）', icon:'🫃', color:'#8e44ad', bg:'#f5f3ff', open:'capd'},
+  pd:  {name:'腹膜透析（PD/APD）', icon:'🫃', color:'#8e44ad', bg:'#f5f3ff', open:'capd'},
   tx:  {name:'腎移植', icon:'🫀', color:'#c0392b', bg:'#fef2f2', open:'tx'},
   ckm: {name:'保存的腎臓療法（CKM）', icon:'🌿', color:'#4a7c59', bg:'#f0fdf4', open:'ckm'},
 };
@@ -1852,7 +1892,7 @@ function buildFaqGrid() {
   ).join('');
 }
 function buildWorryGrid() {
-  const ids=['life','money','work','pain','travel','tired'];
+  const ids=['life','money','work','tx-donor','pain','travel','tired'];
   document.getElementById('worry-grid').innerHTML = ids.map(id=>{
     const f=FAQS.find(x=>x.id===id);
     return `<button class="tile-btn" onclick="showFaq('${f.id}')">
@@ -1952,7 +1992,7 @@ function collectDecisionData(){
 function calcAndShowResult() {
   const data=collectDecisionData();
   const tags=[...new Set(data.values.map(v=>v.tag))];
-  let html=`
+  let html1=`
     <div class="result-hero">
       <div class="rh-label">価値観チェック完了</div>
       <div class="rh-ico">🧭</div>
@@ -1968,18 +2008,18 @@ function calcAndShowResult() {
     <div class="sec-lbl">あなたの回答</div>
     <div class="value-list">
       ${data.values.map((v,i)=>`<div class="value-item"><div class="vi-num">${i+1}</div><div><div class="vi-q">${escapeHtml(v.q)}</div><div class="vi-a">${escapeHtml(v.a)}</div></div></div>`).join('')}
-    </div>
-    <div class="sdm-intro"><strong>以下は「おすすめ順」ではありません。</strong><br>あなたの回答と各治療のどこが関係するかを示しています。すべての選択肢を、医学的条件と合わせて確認します。</div>
-    <div class="sec-lbl">治療法ごとの話し合いポイント</div>`;
+    </div>`;
+  let htmlMid=`<div style="font-size:0.88rem;color:#92400e;line-height:1.7;margin-bottom:14px;padding-bottom:14px;border-bottom:1.5px solid #fde68a;"><strong>以下は「おすすめ順」ではありません。</strong><br>あなたの回答と各治療のどこが関係するかを示しています。すべての選択肢を、医学的条件と合わせて確認します。</div>`;
+  let html2=`<div class="sec-lbl">治療法ごとの話し合いポイント</div>`;
   ['hd','hhd','pd','tx','ckm'].forEach(id=>{
     const m=OPTION_META[id], reasons=data.links[id];
-    html+=`<div class="option-map" style="border-color:${m.color}55;">
+    html2+=`<div class="option-map" style="border-color:${m.color}55;">
       <div class="option-map-head"><div class="option-map-icon" style="background:${m.bg};">${m.icon}</div><div class="option-map-name" style="color:${m.color};">${m.name}</div></div>
       ${reasons.length?reasons.map(r=>`<span class="reason-chip" style="border-left-color:${m.color};">${escapeHtml(r)}</span>`).join(''):`<div class="neutral-note">今回の回答では強い関連項目がありませんでした。ただし、医学的条件や今後の希望によって重要な選択肢になることがあります。</div>`}
       <button class="tr-more" style="background:${m.bg};color:${m.color};margin-top:12px;" onclick="startTherapy('${m.open}')">この治療を詳しく見る →</button>
     </div>`;
   });
-  html+=`<div class="card" style="margin-top:18px;">
+  html2+=`<div class="card" style="margin-top:18px;">
     <div class="card-title">主治医と確認する医学的条件</div>
     <div class="check-grid">
       <div class="check-item">🧪 腎機能の低下速度・尿量・症状</div><div class="check-item">🫀 心臓・血管・呼吸の状態</div>
@@ -1993,8 +2033,88 @@ function calcAndShowResult() {
     <div style="font-size:0.86rem;color:#78350f;line-height:1.75;">「私は、この結果に書かれた生活を大切にしたいです。私の病状で選べる方法と、それぞれを選んだ場合の見通しを教えてください。」</div>
   </div>`;
   _lastResultData=data;
-  document.getElementById('result-content').innerHTML=html;
+  document.getElementById('result-content-top').innerHTML=html1;
+  document.getElementById('sdm-intro-section').innerHTML=htmlMid;
+  document.getElementById('result-content-bottom').innerHTML=html2;
+  const today=new Date();
+  const metaEl=document.getElementById('report-meta');
+  if(metaEl) metaEl.textContent = `🧭 大切にしたいこと・話し合いメモ　${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
+  _consideringIds=[];
+  renderConsidering();
   go('s-result');
+}
+// ======================================================
+// 検討中の治療法（任意・レポートに反映）
+// ======================================================
+let _consideringIds = [];
+function toggleConsidering(id) {
+  if(id==='none') {
+    _consideringIds = _consideringIds.includes('none') ? [] : ['none'];
+  } else {
+    _consideringIds = _consideringIds.filter(x=>x!=='none');
+    const i=_consideringIds.indexOf(id);
+    if(i>=0) _consideringIds.splice(i,1); else _consideringIds.push(id);
+  }
+  renderConsidering();
+}
+function renderConsidering() {
+  const el=document.getElementById('considering-section');
+  if(!el) return;
+  const chip=(id)=>{
+    const m=OPTION_META[id], on=_consideringIds.includes(id);
+    return `<button onclick="toggleConsidering('${id}')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:13px 10px;border-radius:16px;border:2px solid ${on?m.color:'#fff'};background:${on?m.bg:'#fff'};color:${on?m.color:'var(--text-sub)'};font-weight:800;font-size:0.92rem;cursor:pointer;box-shadow:var(--shadow-sm);">${on?'✓ ':''}${m.icon} ${m.name}</button>`;
+  };
+  const noneOn=_consideringIds.includes('none');
+  const noneChip=`<button onclick="toggleConsidering('none')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:13px 10px;border-radius:16px;border:2px dashed ${noneOn?'#64748b':'#cbd5e1'};background:${noneOn?'#f1f5f9':'#fff'};color:${noneOn?'#334155':'var(--text-sub)'};font-weight:800;font-size:0.92rem;cursor:pointer;">${noneOn?'✓ ':''}🤔 まだ決まっていない</button>`;
+  const rows=[
+    `<div style="display:flex;gap:10px;margin-bottom:10px;">${chip('hd')}${chip('hhd')}</div>`,
+    `<div style="display:flex;gap:10px;margin-bottom:10px;">${chip('pd')}</div>`,
+    `<div style="display:flex;gap:10px;margin-bottom:10px;">${chip('tx')}</div>`,
+    `<div style="display:flex;gap:10px;margin-bottom:10px;">${chip('ckm')}</div>`,
+    `<div style="display:flex;gap:10px;margin-bottom:10px;">${noneChip}</div>`,
+  ].join('');
+  let summary;
+  if(noneOn) summary=`<div style="font-size:0.92rem;color:#334155;line-height:1.7;font-weight:700;">まだ決まっていません。それで大丈夫です。今日の整理を持って、ゆっくり相談していきましょう。</div>`;
+  else if(_consideringIds.length) summary=`<div style="font-size:0.92rem;color:#0f4c81;line-height:1.7;"><strong>${_consideringIds.map(id=>OPTION_META[id].name).join('、')}</strong>を中心に考えています。</div>`;
+  else summary=`<div style="font-size:0.85rem;color:var(--text-sub);line-height:1.7;">タップして選んでください（複数選んでもかまいません）。</div>`;
+  el.innerHTML=`
+    <div style="background:linear-gradient(135deg,#fef2f2,#fff7f7);border:2.5px solid #ef4444;border-radius:22px;padding:20px 18px;box-shadow:0 4px 16px rgba(239,68,68,0.18);">
+      <div style="font-size:1.1rem;font-weight:900;color:#dc2626;margin-bottom:4px;">💭 今、考えている治療法はありますか？</div>
+      <div style="font-size:0.82rem;color:var(--text-sub);margin-bottom:14px;">よければ選んでください・複数可・決まっていなくても大丈夫です</div>
+      <div>${rows}</div>
+      <div style="margin-top:6px;">${summary}</div>
+    </div>
+  `;
+}
+// ======================================================
+// レポートを画像として保存
+// ======================================================
+function saveReportImage(targetId) {
+  const target=document.getElementById(targetId);
+  if(!target) return;
+  if(typeof html2canvas==='undefined') { alert('画像の生成に対応していない環境です。「印刷・PDF」をお試しください。'); return; }
+  const hideEls=target.querySelectorAll('.no-capture');
+  const prevDisplay=[...hideEls].map(el=>el.style.display);
+  hideEls.forEach(el=>el.style.display='none');
+  const btns=target.querySelectorAll('button');
+  btns.forEach(b=>b.style.pointerEvents='none');
+  const restore=()=>{ hideEls.forEach((el,i)=>el.style.display=prevDisplay[i]); btns.forEach(b=>b.style.pointerEvents=''); };
+  html2canvas(target,{backgroundColor:'#ffffff',scale:2,useCORS:true}).then(canvas=>{
+    restore();
+    const today=new Date();
+    const fname=`治療の話し合いメモ_${today.getFullYear()}${String(today.getMonth()+1).padStart(2,'0')}${String(today.getDate()).padStart(2,'0')}.png`;
+    canvas.toBlob(blob=>{
+      if(!blob){ alert('画像の保存に失敗しました。'); return; }
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download=fname;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url), 4000);
+    }, 'image/png');
+  }).catch(()=>{
+    restore();
+    alert('画像の保存に失敗しました。「印刷・PDF」をお試しください。');
+  });
 }
 // ======================================================
 // FONT TOGGLE
@@ -2010,28 +2130,33 @@ function toggleFont() {
 // DOCTOR VIEW
 // ======================================================
 let _lastResultData = null;
+function buildDoctorReportHtml(data) {
+  const tags=[...new Set(data.values.map(v=>v.tag))];
+  let html=`
+    <div class="card">
+      <div class="card-title">大切にしたいこと</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${tags.map(t=>`<span style="background:#e6f0fa;color:#0f4c81;font-size:0.85rem;font-weight:800;padding:7px 11px;border-radius:20px;">${escapeHtml(t)}</span>`).join('')}
+      </div>
+    </div>
+    <div class="card"><div class="card-title">回答</div><div class="value-list" style="margin-bottom:0;">
+      ${data.values.map((v,i)=>`<div class="value-item"><div class="vi-num">${i+1}</div><div><div class="vi-q">${escapeHtml(v.q)}</div><div class="vi-a">${escapeHtml(v.a)}</div></div></div>`).join('')}
+    </div></div>
+    <div class="card" style="background:${_consideringIds.includes('none')?'#f1f5f9':'#fffbeb'};border-color:${_consideringIds.includes('none')?'#cbd5e1':'#fde68a'};margin-bottom:0;">
+      <div class="card-title" style="color:${_consideringIds.includes('none')?'#334155':'#92400e'};">💭 今、考えている治療法</div>
+      ${_consideringIds.includes('none')?`<div style="font-size:0.86rem;color:#475569;">まだ決まっていません。</div>`
+        : _consideringIds.length?`<div style="display:flex;flex-wrap:wrap;gap:8px;">${_consideringIds.map(id=>{const m=OPTION_META[id];return `<span style="background:${m.bg};color:${m.color};font-size:0.85rem;font-weight:800;padding:7px 11px;border-radius:20px;">${m.icon} ${m.name}</span>`;}).join('')}</div>`
+        : `<div style="font-size:0.86rem;color:#475569;margin-bottom:8px;">（未選択）</div><button class="no-capture print-hide" onclick="goBack()" style="background:none;border:none;color:#0f4c81;font-size:0.85rem;font-weight:800;text-decoration:underline;cursor:pointer;padding:0;">‹ 戻って選ぶ</button>`}
+    </div>`;
+  return html;
+}
 function showDoctorView() {
   const data=_lastResultData || collectDecisionData();
   if(!data || !data.values.length) return;
-  let html=`
-    <div style="background:#fff3cd;border:2px solid #f59e0b;border-radius:16px;padding:16px 14px;margin-bottom:18px;">
-      <div style="font-size:0.82rem;font-weight:800;color:#92400e;margin-bottom:8px;">このシートの位置づけ</div>
-      <div style="font-size:0.86rem;color:#78350f;line-height:1.7;">患者さんの価値観を整理したものであり、治療適応や予後を判定するスコアではありません。医学的条件と統合してSDMに用いてください。</div>
-    </div>
-    <div class="card"><div class="card-title">患者さんの回答</div><div class="value-list" style="margin-bottom:0;">
-      ${data.values.map((v,i)=>`<div class="value-item"><div class="vi-num">${i+1}</div><div><div class="vi-q">${escapeHtml(v.q)}</div><div class="vi-a">${escapeHtml(v.a)}</div></div></div>`).join('')}
-    </div></div>
-    <div class="sec-lbl">治療法との関連（順位ではありません）</div>`;
-  ['hd','hhd','pd','tx','ckm'].forEach(id=>{
-    const m=OPTION_META[id], reasons=data.links[id];
-    html+=`<div class="option-map"><div class="option-map-head"><div class="option-map-icon" style="background:${m.bg};">${m.icon}</div><div class="option-map-name" style="color:${m.color};">${m.name}</div></div>${reasons.length?reasons.map(r=>`<span class="reason-chip" style="border-left-color:${m.color};">${escapeHtml(r)}</span>`).join(''):'<div class="neutral-note">価値観チェック上の強い関連項目なし。医学的適応は別途評価。</div>'}</div>`;
-  });
-  html+=`<div class="card"><div class="card-title">SDMで確認する項目</div><div class="check-grid">
-    <div class="check-item">患者の病状理解と意思決定能力</div><div class="check-item">症状、予後、透析で期待できる利益</div>
-    <div class="check-item">フレイル、ADL、認知機能、併存疾患</div><div class="check-item">HD・HHD・PD・移植・CKMの適応</div>
-    <div class="check-item">治療負担、通院、介助者、住環境</div><div class="check-item">ACP、代理意思決定者、緊急時方針</div>
-  </div></div>`;
-  document.getElementById('dv-content').innerHTML=html;
+  document.getElementById('dv-content').innerHTML=buildDoctorReportHtml(data);
+  const today=new Date();
+  const dmeta=document.getElementById('doctor-report-meta');
+  if(dmeta) dmeta.textContent = `🧭 大切にしたいこと・話し合いメモ　${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
   go('s-doctor');
 }
 // ======================================================
